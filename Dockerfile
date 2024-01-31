@@ -1,4 +1,4 @@
-FROM node:18.13.0-alpine3.14
+FROM node:lts-alpine
 
 # Create app directory
 WORKDIR /usr/src/high-five/frontend
