@@ -5,12 +5,9 @@ const NavigationBar = () => {
 		<div>
 			<Outlet />
 			<div className='navigation-bar-container'>
-				<Link to='#'>home</Link>
-				<Link to='#'>explore</Link>
-				<Link to='#'>chat</Link>
-				<Link to='#'>search</Link>
-				<Link to='#'>notifications</Link>
-				<Link to='#'>profile</Link>
+				<div></div>
+				<Link to='/'>home</Link>
+				<Link to='/explore'>explore</Link>
 			</div>
 		</div>
 	);

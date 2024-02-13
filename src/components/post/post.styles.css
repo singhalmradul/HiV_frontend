@@ -21,15 +21,25 @@
 	margin-top: 20px;
 }
 
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
 .post button {
 	background-color: #007bff;
 	color: #fff;
 	border: none;
 	border-radius: 5px;
 	padding: 10px 20px;
-	margin-top: 20px;
-	margin-right: 10px;
 	cursor: pointer;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.post button:not(:last-child) {
+	margin-right: 10px;
 }
 
 .post button:hover {

@@ -1,7 +1,7 @@
 import { PostType } from '../../components/post/post.component';
 import Posts from '../../components/posts/posts.component';
 
-const Home = () => {
+const Explore = () => {
 	const post = {
 		user: 'user',
 		text: 'caption',
@@ -12,7 +12,7 @@ const Home = () => {
 		shares: 9,
 	};
 	const arr = [];
-	for (let f = 0; f < 10; f++) {
+	for (let f = 0; f < 15; f++) {
 		arr.push(f);
 	}
 	const posts = arr.map((int): PostType => {
@@ -31,4 +31,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Explore;
