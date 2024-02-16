@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   frontend:
+    image: singhalmradul/high-five-frontend:0.0.1-SNAPSHOT
     build: .
     ports:
       - '3000:3000'
