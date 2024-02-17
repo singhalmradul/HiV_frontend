@@ -1,8 +1,8 @@
-import { PostType } from '../../components/post/post.component';
 import Posts from '../../components/posts/posts.component';
+import { Post } from '../../store/posts/posts.types';
 
 const Explore = () => {
-	const post: PostType = {
+	const post: Post = {
 		id: '0',
 		userId: 'user',
 		text: 'caption',
@@ -16,7 +16,7 @@ const Explore = () => {
 	for (let f = 0; f < 36; f++) {
 		arr.push(f);
 	}
-	const posts = arr.map((int): PostType => {
+	const posts = arr.map((int): Post => {
 		const newPost = { ...post };
 		newPost.userId = post.userId + ' ' + int;
 		newPost.text = post.text + ' ' + int;

@@ -1,14 +1,7 @@
 import './post.styles.css';
+import { Post as PostType } from '../../store/posts/posts.types';
 
-export type PostType = {
-	id: string;
-	userId: string;
-	text: string;
-	image: string | null;
-	highFives: number;
-	comments: number;
-	shares: number;
-};
+
 const Post = ({ userId, text, image, highFives, comments, shares }: PostType) => {
 	return (
 		<div className='post'>
