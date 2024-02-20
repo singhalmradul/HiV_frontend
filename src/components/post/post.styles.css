@@ -4,16 +4,15 @@
 	padding: 20px;
 	margin-bottom: 20px;
 	backdrop-filter: blur(10px);
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .post-header {
     display: flex;
     align-items: center;
-	margin-bottom: 10px;
 }
 
-
-.post-header h2, .post p {
+.post-header p, .post p {
 	margin: 0;
     color: #111;
 }
@@ -23,10 +22,17 @@
 	color: #333;
 }
 
+.post-header p {
+	font-size: xx-large;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
 .post img {
 	width: 100%;
 	height: auto;
 	margin-top: 20px;
+	border-radius: 1cap;
+	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 .post-header img {
@@ -34,6 +40,7 @@
 	height: 50px;
 	border-radius: 50%;
 	margin-right: 10px;
+	margin-bottom: 20px;
 }
 
 .buttons {
@@ -42,21 +49,31 @@
 	margin-top: 20px;
 }
 
-.buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+.buttons div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.buttons svg {
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    flex-grow: 1;
-    text-align: center;
+    color: #007bff;
+	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
 }
 
-.buttons button:not(:last-child) {
-	margin-right: 10px;
+
+.buttons span {
+    cursor: pointer;
+    color: #007bff;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
-.buttons button:hover {
-	background-color: #0056b3;
+.buttons svg:hover, .buttons span:hover {
+	color: #0056b3;
 }
