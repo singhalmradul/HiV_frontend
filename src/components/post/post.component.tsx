@@ -1,28 +1,31 @@
-import './post.styles.css';
 import { Post as PostType } from '../../store/posts/posts.types';
-import { ReactComponent as HighFive } from "../../assets/high-five.svg";
-import { ReactComponent as Comment } from "../../assets/comment.svg";
+import { ReactComponent as CommentIcon } from "../../assets/comment.svg";
+import { Button, ButtonText, Buttons, Header, Image, PostContainer, ProfilePicture, Text } from './post.styles';
+import { useState } from 'react';
+import LikeIcon from '../like-icon/like-icon.component';
 
-const Post = ({ user: { username, profilePicture }, text, image, highFives, comments}: PostType) => {
+const Post = ({ user: { username, profilePicture }, text, image, likes, comments }: PostType) => {
+	const [isLiked, setIsLiked] = useState(false);
+	const toggleLike = () => { setIsLiked(!isLiked); };
 	return (
-		<div className='post'>
-			<div className='post-header'>
-				<img src={profilePicture} alt={username} />
-			<p>{username}</p>
-			</div>
-			<p>{text}</p>
-			{image && <img src={image} alt={text} />}
-			<div className='buttons'>
-				<div>
-					<HighFive/>
-					<span>{highFives}</span>
-				</div>
-				<div>
-					<Comment />
-					<span>{comments}</span>
-				</div>
-			</div>
-		</div>
+		<PostContainer>
+			<Header>
+				<ProfilePicture src={profilePicture} alt={username} />
+				<p>{username}</p>
+			</Header>
+			<Text>{text}</Text>
+			{image && <Image src={image} alt={text} />}
+			<Buttons>
+				<Button>
+					<LikeIcon isLiked={isLiked} onClick={toggleLike} />
+					<ButtonText>{likes}</ButtonText>
+				</Button>
+				<Button>
+					<CommentIcon />
+					<ButtonText>{comments}</ButtonText>
+				</Button>
+			</Buttons>
+		</PostContainer>
 	);
 };
 

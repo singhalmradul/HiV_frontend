@@ -5,7 +5,7 @@ const Explore = () => {
 
 	const user: User = {
 		id: '0',
-		username: 'hawksea',
+		username: 'hawksea111222222222211111111',
 		profilePicture: 'https://i.ibb.co/4p8FSQ7/SeaHawk.jpg'
 	};
 
@@ -14,8 +14,8 @@ const Explore = () => {
 		user,
 		text: 'caption',
 		image:
-			'https://media.discordapp.net/attachments/1192866457688752148/1199702169729908786/49bdbf8c63ec02394a09de762e5d5f72_2.jpg?ex=65c380b6&is=65b10bb6&hm=a4d9442d052444bed9d2ae9507dd9ce2208cfa04bc7d422569554c611671136d&=&format=webp',
-		highFives: 1,
+			'https://media.discordapp.net/attachments/1192866457688752148/1199702169729908786/49bdbf8c63ec02394a09de762e5d5f72_2.jpg',
+		likes: 1,
 		comments: 1,
 		shares: 1,
 	};
@@ -26,7 +26,7 @@ const Explore = () => {
 	const posts = arr.map((int): Post => {
 		const newPost = { ...post };
 		newPost.text = post.text + ' ' + int;
-		newPost.highFives = post.highFives + int;
+		newPost.likes = post.likes + int;
 		newPost.comments = post.comments + int;
 		newPost.shares = post.shares + int;
 		return newPost;

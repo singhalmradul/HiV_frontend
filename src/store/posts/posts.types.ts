@@ -15,7 +15,7 @@ export type Post = {
 	user: User;
 	text: string;
 	image: string | null;
-	highFives: number;
+	likes: number;
 	comments: number;
 	shares: number;
 };

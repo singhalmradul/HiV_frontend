@@ -19,7 +19,6 @@
 	},
 	"include": [
 		"src",
-		"src/components/navigation-bar/navigation-bar.component.tsx",
-		"src/components/feed/feed.component.tsx"
+		"src/global.d.ts"
 	]
 }
