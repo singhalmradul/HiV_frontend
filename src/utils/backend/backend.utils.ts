@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { Post } from '../../store/posts/posts.types';
 
 const url = (endpoint: string) =>

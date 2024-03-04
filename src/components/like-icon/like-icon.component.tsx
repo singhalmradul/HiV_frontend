@@ -21,9 +21,8 @@ import { ReactComponent as Like19 } from '../../assets/like/19.svg';
 import { ReactComponent as Like20 } from '../../assets/like/20.svg';
 import { ReactComponent as Like21 } from '../../assets/like/21.svg';
 import { ReactComponent as Like22 } from '../../assets/like/22.svg';
-import { ReactComponent as Like23 } from '../../assets/like/23.svg';
 
-import { MouseEventHandler, SVGProps, useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 
 
 const svgs = [
@@ -50,18 +49,17 @@ const svgs = [
   Like20,
   Like21,
   Like22,
-  Like23,
 ];
 type LikeIconProps = {
   isLiked: boolean;
-  onClick: MouseEventHandler;
+  onClick: MouseEventHandler<SVGElement>;
 };
 
 const LikeIcon = ({ isLiked, onClick }: LikeIconProps) => {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
-    if (isLiked && phase < 23) {
+    if (isLiked && phase < svgs.length - 1) {
       setPhase(phase + 1);
     }
     if (!isLiked && phase > 0) {

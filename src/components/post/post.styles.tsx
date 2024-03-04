@@ -71,6 +71,7 @@ export const Button = styled.div`
 	}
 	svg:hover {
 		color: #0056b3;
+		transform: scale(1.5);
 	}
 `;
 
