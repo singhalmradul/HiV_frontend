@@ -17,5 +17,4 @@ export type Post = {
 	image: string | null;
 	likes: number;
 	comments: number;
-	shares: number;
 };

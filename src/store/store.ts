@@ -3,9 +3,12 @@ import { rootReducer } from './root-reducer';
 import { logger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { rootSaga } from './root-saga';
+import { Auth0Context } from '@auth0/auth0-react';
 export type RootState = ReturnType<typeof rootReducer>;
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware({
+	context: Auth0Context
+});
 
 const middlewares = [
 	process.env.NODE_ENV !== 'production' && logger,

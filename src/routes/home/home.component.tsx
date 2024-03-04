@@ -12,10 +12,7 @@ const Home = () => {
 	const posts = useSelector(selectPosts)
 
 	useEffect(() => {
-		const fetchPosts = async () => {
 			dispatch(fetchPostsStart())
-		};
-		fetchPosts();
 	}, []);
 
 
