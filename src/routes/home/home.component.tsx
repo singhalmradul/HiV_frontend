@@ -18,7 +18,7 @@ const Home = () => {
 
 	return (
 		<div className='home'>
-			<Posts posts={posts} />
+			{/* <Posts posts={posts} /> */}
 		</div>
 	);
 };

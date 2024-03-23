@@ -18,6 +18,9 @@ export const Image = styled.img`
 	user-select: none;
 `;
 
+export const Username = styled.p`
+`;
+
 export const Text = styled.p`
 	margin: 0;
 	color: #111;
