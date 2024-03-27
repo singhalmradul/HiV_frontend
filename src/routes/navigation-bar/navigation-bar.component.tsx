@@ -5,9 +5,9 @@ const NavigationBar = () => {
 		<div>
 			<Outlet />
 			<div className='navigation-bar-container'>
-				<div></div>
 				<Link to='/'>home</Link>
 				<Link to='/explore'>explore</Link>
+				<Link to='/profile'>profile</Link>
 			</div>
 		</div>
 	);

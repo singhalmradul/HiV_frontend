@@ -1,22 +1,25 @@
-import { all, call, getContext, put, takeLatest } from 'typed-redux-saga/macro';
-import { userSignInFailed, userSignInSuccess } from './user.action';
+import { all, call, put, takeLatest } from 'typed-redux-saga/macro';
+import {
+	FetchUserDetialsStart,
+	fetchUserDetailsFailed,
+	fetchUserDetailsSuccess,
+} from './user.action';
 import { USER_ACTION_TYPES } from './user.types';
-import { AuthContextProps } from 'oidc-react';
+import { fetchUser } from '../../utils/backend/backend.utils';
 
-export function* authenticateUserAsync() {
-
-	const { signIn } = yield* getContext<AuthContextProps>('AuthContext');
-
-	yield* call(signIn);
+export function* fetchUserAsync({ payload: id }: FetchUserDetialsStart) {
+	try {
+		const user = yield* call(fetchUser, id);
+		yield* put(fetchUserDetailsSuccess(user));
+	} catch (error) {
+		yield* put(fetchUserDetailsFailed(error as Error));
+	}
 }
 
-export function* onCheckUserSession() {
-	yield* takeLatest(
-		USER_ACTION_TYPES.CHECK_USER_SESSION,
-		authenticateUserAsync
-	);
+export function* onFetchUserDetailsStart() {
+	yield* takeLatest(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, fetchUserAsync);
 }
 
 export function* userSaga() {
-	yield* all([call(onCheckUserSession)]);
+	yield* all([call(onFetchUserDetailsStart)]);
 }

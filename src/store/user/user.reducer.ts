@@ -1,8 +1,8 @@
 import { UnknownAction } from 'redux';
 import {
-	userSignInFailed,
-	checkUserSession,
-	userSignInSuccess,
+	fetchUserDetailsFailed,
+	fetchUserDetailsStart,
+	fetchUserDetailsSuccess,
 } from './user.action';
 import { User } from './user.types';
 
@@ -22,13 +22,13 @@ export const userReducer = (
 	state = USER_INITIAL_STATE,
 	action = {} as UnknownAction
 ) => {
-	if (checkUserSession.match(action)) {
+	if (fetchUserDetailsStart.match(action)) {
 		return { ...state, isLoading: true };
 	}
-	if (userSignInSuccess.match(action)) {
+	if (fetchUserDetailsSuccess.match(action)) {
 		return { ...state, user: action.payload, isLoading: false };
 	}
-	if (userSignInFailed.match(action)) {
+	if (fetchUserDetailsFailed.match(action)) {
 		return { ...state, error: action.payload, isLoading: false };
 	}
 	return state;

@@ -23,8 +23,8 @@ export const Username = styled.p`
 
 export const Text = styled.p`
 	margin: 0;
-	color: #111;
-	font-size: 16px;
+	color: #110;
+	font-size: 20px;
 	color: #333;
 `;
 export const Header = styled.div`
@@ -80,7 +80,7 @@ export const Button = styled.div`
 
 export const ButtonText = styled.span`
 	cursor: pointer;
-	color: #007bff;
+	color: #000b0f;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 	&:hover {
 		color: #0056b3;
