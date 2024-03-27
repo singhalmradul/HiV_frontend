@@ -1,38 +1,41 @@
 import {
-	Action,
 	ActionWithPayload,
 	createAction,
 	withMatcher,
 } from '../../utils/reducer/reducer.utils';
 import { USER_ACTION_TYPES, User } from './user.types';
 
-export type CheckUserSession = Action<USER_ACTION_TYPES.CHECK_USER_SESSION>;
+export type FetchUserDetialsStart = ActionWithPayload<
+	USER_ACTION_TYPES.FETCH_USER_DETIALS_START,
+	string
+>;
 
-export type UserSignInSuccess = ActionWithPayload<
-	USER_ACTION_TYPES.USER_SIGN_IN_SUCCESS,
+export type FetchUserDetailsSuccess = ActionWithPayload<
+	USER_ACTION_TYPES.FETCH_USER_DETAILS_SUCCESS,
 	User
 >;
 
-export type UserSignInFailed = ActionWithPayload<
-	USER_ACTION_TYPES.USER_SIGN_IN_FAILED,
+export type FetchUserDetailsFailed = ActionWithPayload<
+	USER_ACTION_TYPES.FETCH_USER_DETAILS_FAILED,
 	Error
 >;
 
 export type UserAction =
-	| CheckUserSession
-	| UserSignInSuccess
-	| UserSignInFailed;
+	| FetchUserDetialsStart
+	| FetchUserDetailsSuccess
+	| FetchUserDetailsFailed;
 
-export const checkUserSession = withMatcher(
-	(): CheckUserSession => createAction(USER_ACTION_TYPES.CHECK_USER_SESSION)
+export const fetchUserDetailsStart = withMatcher(
+	(id: string): FetchUserDetialsStart =>
+		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, id)
 );
 
-export const userSignInSuccess = withMatcher(
-	(user:User): UserSignInSuccess =>
-		createAction(USER_ACTION_TYPES.USER_SIGN_IN_SUCCESS, user)
+export const fetchUserDetailsSuccess = withMatcher(
+	(user: User): FetchUserDetailsSuccess =>
+		createAction(USER_ACTION_TYPES.FETCH_USER_DETAILS_SUCCESS, user)
 );
 
-export const userSignInFailed = withMatcher(
-	(error: Error): UserSignInFailed =>
-		createAction(USER_ACTION_TYPES.USER_SIGN_IN_FAILED, error)
+export const fetchUserDetailsFailed = withMatcher(
+	(error: Error): FetchUserDetailsFailed =>
+		createAction(USER_ACTION_TYPES.FETCH_USER_DETAILS_FAILED, error)
 );

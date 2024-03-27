@@ -15,11 +15,11 @@ const root = ReactDOM.createRoot(
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
-			<AuthProvider {...oidcConfig}>
-				<Provider store={store}>
+			<Provider store={store}>
+				<AuthProvider {...oidcConfig}>
 					<App />
-				</Provider>
-			</AuthProvider>
+				</AuthProvider>
+			</Provider>
 		</BrowserRouter>
 	</React.StrictMode>
 );

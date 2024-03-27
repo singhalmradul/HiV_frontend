@@ -1,11 +1,13 @@
-export const oidcConfig = {
-	onSignIn: async (user: any) => {
-        alert('You just signed in, congratz! Check out the console!');
-        window.location.href = '/';
-	},
+import { AuthProviderProps, User } from 'oidc-react';
+
+export const oidcConfig: AuthProviderProps = {
 	authority: process.env.REACT_APP_AUTH_AUTHORITY,
 	clientId: process.env.REACT_APP_AUTH_CLIENT_ID,
-	// responseType: 'id_token',
 	redirectUri:
-		process.env.REACT_APP_AUTH_REDIRECT_URI ?? window.location.origin,
+        process.env.REACT_APP_AUTH_REDIRECT_URI ?? window.location.origin.concat('/callback'),
+    onSignIn: async (user: User | null) => {
+    console.log('user', user)
+    window.location.href = '/';
+}
+
 };

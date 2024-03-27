@@ -8,9 +8,7 @@ import { AuthContext } from 'oidc-react';
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const sagaMiddleware = createSagaMiddleware({
-	context: { AuthContext }
-});
+const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [
 	process.env.NODE_ENV !== 'production' && logger,
