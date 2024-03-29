@@ -7,7 +7,9 @@ export enum USER_ACTION_TYPES {
 
 export type User = {
 
-	id: string;
+    id: string;
+    displayName: string;
 	username: string;
-	profilePicture: string;
+    avatar: string;
+    bio: string;
 };

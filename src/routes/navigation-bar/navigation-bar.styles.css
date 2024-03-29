@@ -1,12 +1,14 @@
 .navigation-bar-container {
-	display: flex;
-	justify-content: space-around;
-	padding: 20px;
-	background-color: #f8f9fa;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    justify-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
+
 
 .navigation-bar-container a {
 	text-decoration: none;
