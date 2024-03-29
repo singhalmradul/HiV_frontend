@@ -16,7 +16,7 @@ import {
 	Username
 } from './post.styles';
 
-const Post = ({ user: { username, profilePicture }, text, image, likes, comments }: PostType) => {
+const Post = ({ user: { displayName, avatar }, text, image, likes, comments }: PostType) => {
 
 	const [isLiked, setIsLiked] = useState(false);
 
@@ -26,8 +26,8 @@ const Post = ({ user: { username, profilePicture }, text, image, likes, comments
 		<PostContainer>
 
 			<Header>
-				<ProfilePicture src={profilePicture} alt={username} />
-				<Username>{username}</Username>
+				<ProfilePicture src={avatar} alt={displayName} />
+				<Username>{displayName}</Username>
 			</Header>
 
 			<Text>{text}</Text>

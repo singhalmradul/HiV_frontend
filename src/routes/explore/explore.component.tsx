@@ -5,8 +5,8 @@ const Explore = () => {
 
 	const user: User = {
 		id: '0',
-		username: '12345678901234567890',
-		profilePicture: 'https://i.ibb.co/4p8FSQ7/SeaHawk.jpg'
+		displayName: '12345678901234567890',
+		avatar: 'https://i.ibb.co/4p8FSQ7/SeaHawk.jpg'
 	};
 
 	const post: Post = {

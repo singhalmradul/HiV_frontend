@@ -6,8 +6,8 @@ export enum POST_ACTION_TYPES {
 
 export type User = {
 	id: string;
-	username: string;
-	profilePicture: string;
+	displayName: string;
+	avatar: string;
 };
 
 export type Post = {
