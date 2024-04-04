@@ -1,38 +1,41 @@
 import {
-	Action,
 	ActionWithPayload,
 	createAction,
 	withMatcher,
 } from '../../utils/reducer/reducer.utils';
 import { POST_ACTION_TYPES, Post } from './posts.types';
 
-export type FetchPostsStart = Action<POST_ACTION_TYPES.FETCH_POSTS_START>;
+export type FetchUserPostsStart = ActionWithPayload<
+	POST_ACTION_TYPES.FETCH_USER_POSTS_START,
+	string
+>;
 
-export type FetchPostsSuccess = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_POSTS_SUCCESS,
+export type FetchUserPostsSuccess = ActionWithPayload<
+	POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS,
 	Post[]
 >;
 
-export type FetchPostsFailed = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_POSTS_FAILED,
+export type FetchUserPostsFailed = ActionWithPayload<
+	POST_ACTION_TYPES.FETCH_USER_POSTS_FAILED,
 	Error
 >;
 
 export type PostsAction =
-	| FetchPostsStart
-	| FetchPostsSuccess
-	| FetchPostsFailed;
+	| FetchUserPostsStart
+	| FetchUserPostsSuccess
+	| FetchUserPostsFailed;
 
-export const fetchPostsStart = withMatcher(
-	(): FetchPostsStart => createAction(POST_ACTION_TYPES.FETCH_POSTS_START)
+export const fetchUserPostsStart = withMatcher(
+	(userId: string): FetchUserPostsStart =>
+		createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, userId)
 );
 
-export const fetchPostsSuccess = withMatcher(
-	(posts: Post[]): FetchPostsSuccess =>
-		createAction(POST_ACTION_TYPES.FETCH_POSTS_SUCCESS, posts)
+export const fetchUserPostsSuccess = withMatcher(
+	(posts: Post[]): FetchUserPostsSuccess =>
+		createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS, posts)
 );
 
-export const fetchPostsFailed = withMatcher(
-	(error: Error): FetchPostsFailed =>
-		createAction(POST_ACTION_TYPES.FETCH_POSTS_FAILED, error)
+export const fetchUserPostsFailed = withMatcher(
+	(error: Error): FetchUserPostsFailed =>
+		createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_FAILED, error)
 );
