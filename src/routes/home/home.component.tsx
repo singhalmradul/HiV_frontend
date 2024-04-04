@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 
 import Posts from '../../components/posts/posts.component';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPostsStart } from '../../store/posts/posts.action';
-import { selectPosts } from '../../store/posts/posts.selector';
+import { fetchUserPostsStart } from '../../store/posts/posts.action';
+import { selectUserPosts } from '../../store/posts/posts.selector';
 
 const Home = () => {
 
 	const dispatch = useDispatch();
 
-	const posts = useSelector(selectPosts)
+	const posts = useSelector(selectUserPosts)
 
 	useEffect(() => {
 			// dispatch(fetchPostsStart())
