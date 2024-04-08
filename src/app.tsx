@@ -7,7 +7,7 @@ import Home from './routes/home/home.component';
 import Explore from './routes/explore/explore.component';
 import Callback from './routes/callback/callback.component';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useAuth } from 'oidc-react';
 import { fetchUserDetailsStart } from './store/user/user.action';
 import Profile from './routes/profile/profile.component';
@@ -22,6 +22,7 @@ const App = () => {
 		if (!isLoading && !userData) {
 			signIn();
 		}
+
 		if (userData) {
 			dispatch(fetchUserDetailsStart(userData.profile.sub));
 		}

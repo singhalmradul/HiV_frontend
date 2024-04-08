@@ -1,7 +1,9 @@
 import { all, call, put, takeLatest } from 'typed-redux-saga/macro';
-import { fetchUserPosts } from '../../utils/backend/backend.utils';
+import { fetchFeedPosts, fetchUserPosts } from '../../utils/backend/backend.utils';
 import {
 	FetchUserPostsStart,
+	fetchFeedPostsFailed,
+	fetchFeedPostsSuccess,
 	fetchUserPostsFailed,
 	fetchUserPostsSuccess,
 } from './posts.action';
@@ -16,10 +18,29 @@ export function* fetchUserPostsAsync({ payload: userId }: FetchUserPostsStart) {
 	}
 }
 
+export function* fetchFeedPostsAsync({ payload: userId }: FetchUserPostsStart) {
+	try {
+		const posts = yield* call(fetchFeedPosts, userId);
+		yield* put(fetchFeedPostsSuccess(posts));
+	} catch (error) {
+		yield* put(fetchFeedPostsFailed(error as Error));
+	}
+}
+
 export function* onFetchUserPosts() {
-	yield* takeLatest(POST_ACTION_TYPES.FETCH_USER_POSTS_START, fetchUserPostsAsync);
+	yield* takeLatest(
+		POST_ACTION_TYPES.FETCH_USER_POSTS_START,
+		fetchUserPostsAsync
+	);
+}
+
+export function* onFetchFeedPosts() {
+	yield* takeLatest(
+		POST_ACTION_TYPES.FETCH_FEED_POSTS_START,
+		fetchFeedPostsAsync
+	);
 }
 
 export function* postsSaga() {
-	yield* all([call(onFetchUserPosts)]);
+	yield* all([call(onFetchUserPosts), call(onFetchFeedPosts)]);
 }

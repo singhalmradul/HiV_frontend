@@ -17,6 +17,9 @@ export const fetchUserPosts = async (userId: string) => {
 	return fetchPosts(postUrl(userId));
 };
 
+export const fetchFeedPosts = async (userId: string) => {
+	return fetchPosts(`${postUrl(userId)}/feed`);
+};
 export const fetchUser = async (id: string) => {
 	const response = await axios.get(`${userUrl}/${id}`);
 	return response.data;
