@@ -2,23 +2,27 @@ import { useEffect } from 'react';
 
 import Posts from '../../components/posts/posts.component';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserPostsStart } from '../../store/posts/posts.action';
-import { selectUserPosts } from '../../store/posts/posts.selector';
+import { fetchFeedPostsStart } from '../../store/posts/posts.action';
+import { selectFeedPosts } from '../../store/posts/posts.selector';
+import { selectUser } from '../../store/user/user.selector';
 
 const Home = () => {
 
 	const dispatch = useDispatch();
 
-	const posts = useSelector(selectUserPosts)
+	const posts = useSelector(selectFeedPosts)
+	const user = useSelector(selectUser)
+
 
 	useEffect(() => {
-			// dispatch(fetchPostsStart())
-	}, []);
+		if(user)
+			dispatch(fetchFeedPostsStart(user.id))
+	}, [user]);
 
 
 	return (
 		<div className='home'>
-			{/* <Posts posts={posts} /> */}
+			<Posts posts={posts} />
 		</div>
 	);
 };
