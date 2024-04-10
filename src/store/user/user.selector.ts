@@ -14,3 +14,8 @@ export const selectUserIsLoading = createSelector(
 	[selectUserReducer],
 	(userSlice) => userSlice.isLoading
 );
+
+export const selectUserId = createSelector(
+	[selectUser],
+	(user) => user?.id
+);

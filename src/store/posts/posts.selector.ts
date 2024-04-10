@@ -4,14 +4,9 @@ import { PostsState } from './posts.reducer';
 
 const selectPostsReducer = (state: RootState): PostsState => state.posts;
 
-export const selectUserPosts = createSelector(
+export const selectPosts = createSelector(
 	[selectPostsReducer],
-	(postsSlice) => postsSlice.userPosts
-);
-
-export const selectFeedPosts = createSelector(
-	[selectPostsReducer],
-	(postsSlice) => postsSlice.feedPosts
+	(postsSlice) => postsSlice.posts
 );
 export const selectPostsIsLoading = createSelector(
 	[selectPostsReducer],

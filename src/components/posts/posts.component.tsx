@@ -5,7 +5,7 @@ import './posts.styles.css';
 import { selectPostsIsLoading } from '../../store/posts/posts.selector';
 import Spinner from '../spinner/spinner.component';
 
-type PostProps = { posts: PostType[] };
+type PostProps = { posts: PostType[]; };
 const Posts = ({ posts }: PostProps) => {
 
 	const isLoading = useSelector(selectPostsIsLoading);

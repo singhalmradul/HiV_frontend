@@ -5,21 +5,20 @@ import Spinner from '../../components/spinner/spinner.component';
 import './profile.styles.css';
 import Posts from '../../components/posts/posts.component';
 import { useEffect } from 'react';
-import { selectUserPosts } from '../../store/posts/posts.selector';
-import { fetchUserPostsStart } from '../../store/posts/posts.action';
+import { selectPosts } from '../../store/posts/posts.selector';
+import { fetchPostsStart } from '../../store/posts/posts.action';
+import { POST_TYPES } from '../../store/posts/posts.types';
 
 const Profile = () => {
 
     const userIsLoading = useSelector(selectUserIsLoading);
-    const user = useSelector(selectUser)
-    const userPosts = useSelector(selectUserPosts);
+    const user = useSelector(selectUser);
+    const userPosts = useSelector(selectPosts);
     const dispatch = useDispatch();
+
     useEffect(() => {
-        if (user) {
-            console.log('fetching user posts');
-            dispatch(fetchUserPostsStart(user.id));
-        }
-    },[user]);
+        dispatch(fetchPostsStart(POST_TYPES.USER_POSTS));
+    }, [user]);
 
 
     if (userIsLoading) {
@@ -30,17 +29,17 @@ const Profile = () => {
         return <h2>unexpected error</h2>;
     }
 
-    const {displayName, avatar, bio, username} = user;
+    const { displayName, avatar, bio, username } = user;
 
     return (
         <div className='profile-container'>
             <h2 className='display-name'>{displayName}</h2>
-            {avatar && <img className='avatar'src={avatar} alt={username} />}
+            {avatar && <img className='avatar' src={avatar} alt={username} />}
             <p className='bio'>{bio}</p>
             <Posts posts={userPosts} />
         </div>
     );
 
-}
+};
 
 export default Profile;

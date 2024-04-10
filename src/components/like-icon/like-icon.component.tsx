@@ -56,7 +56,7 @@ type LikeIconProps = {
 };
 
 const LikeIcon = ({ isLiked, onClick }: LikeIconProps) => {
-  const [phase, setPhase] = useState(0);
+  const [phase, setPhase] = useState(isLiked ? svgs.length - 1 : 0);
 
   useEffect(() => {
     if (isLiked && phase < svgs.length - 1) {
