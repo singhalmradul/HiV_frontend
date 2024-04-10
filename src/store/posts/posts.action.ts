@@ -4,72 +4,73 @@ import {
 	withMatcher,
 } from '../../utils/reducer/reducer.utils';
 
-import { POST_ACTION_TYPES, Post } from './posts.types';
-// ---------------------- FEED POSTS ACTION TYPES ----------------------
-export type FetchFeedPostsStart = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_FEED_POSTS_START,
-	string
+import { POST_ACTION_TYPES, POST_TYPES, Post } from './posts.types';
+
+// ---------------------- POSTS ACTION TYPES ----------------------
+export type FetchPostsStart = ActionWithPayload<
+	POST_ACTION_TYPES.FETCH_POSTS_START,
+	POST_TYPES
 >;
 
-export type FetchFeedPostsSuccess = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_FEED_POSTS_SUCCESS,
+export type FetchPostsSuccess = ActionWithPayload<
+	POST_ACTION_TYPES.FETCH_POSTS_SUCCESS,
 	Post[]
 >;
 
-export type FetchFeedPostsFailed = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_FEED_POSTS_FAILED,
+export type FetchPostsFailed = ActionWithPayload<
+	POST_ACTION_TYPES.FETCH_POSTS_FAILED,
 	Error
 >;
-// ---------------------- USER POSTS ACTION TYPES ----------------------
-export type FetchUserPostsStart = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_USER_POSTS_START,
+// ---------------------- TOGGLE LIKE ACTION TYPES ----------------------
+export type ToggleLikeStart = ActionWithPayload<
+	POST_ACTION_TYPES.TOGGLE_LIKE_START,
 	string
 >;
-
-export type FetchUserPostsSuccess = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS,
+export type ToggleLikeSuccess = ActionWithPayload<
+	POST_ACTION_TYPES.TOGGLE_LIKE_SUCCESS,
 	Post[]
 >;
 
-export type FetchUserPostsFailed = ActionWithPayload<
-	POST_ACTION_TYPES.FETCH_USER_POSTS_FAILED,
+export type ToggleLikeFailed = ActionWithPayload<
+	POST_ACTION_TYPES.TOGGLE_LIKE_FAILED,
 	Error
 >;
 // ---------------------- POSTS ACTION ----------------------
 export type PostsAction =
-	| FetchFeedPostsStart
-	| FetchFeedPostsSuccess
-	| FetchFeedPostsFailed
-	| FetchUserPostsStart
-	| FetchUserPostsSuccess
-	| FetchUserPostsFailed;
-// ---------------------- FEED POSTS ACTION CREATORS ----------------------
-export const fetchFeedPostsStart = withMatcher(
-	(userId: string): FetchFeedPostsStart =>
-		createAction(POST_ACTION_TYPES.FETCH_FEED_POSTS_START, userId)
+	| FetchPostsStart
+	| FetchPostsSuccess
+	| FetchPostsFailed
+	| ToggleLikeStart
+	| ToggleLikeSuccess
+	| ToggleLikeFailed;
+// ---------------------- POSTS ACTION CREATORS ----------------------
+export const fetchPostsStart = withMatcher(
+	(postType: POST_TYPES): FetchPostsStart =>
+		createAction(POST_ACTION_TYPES.FETCH_POSTS_START, postType)
 );
 
-export const fetchFeedPostsSuccess = withMatcher(
-	(posts: Post[]): FetchFeedPostsSuccess =>
-		createAction(POST_ACTION_TYPES.FETCH_FEED_POSTS_SUCCESS, posts)
+export const fetchPostsSuccess = withMatcher(
+	(posts: Post[]): FetchPostsSuccess =>
+		createAction(POST_ACTION_TYPES.FETCH_POSTS_SUCCESS, posts)
 );
 
-export const fetchFeedPostsFailed = withMatcher(
-	(error: Error): FetchFeedPostsFailed =>
-		createAction(POST_ACTION_TYPES.FETCH_FEED_POSTS_FAILED, error)
-);
-// ---------------------- USER POSTS ACTION CREATORS ----------------------
-export const fetchUserPostsStart = withMatcher(
-	(userId: string): FetchUserPostsStart =>
-		createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, userId)
+export const fetchPostsFailed = withMatcher(
+	(error: Error): FetchPostsFailed =>
+		createAction(POST_ACTION_TYPES.FETCH_POSTS_FAILED, error)
 );
 
-export const fetchUserPostsSuccess = withMatcher(
-	(posts: Post[]): FetchUserPostsSuccess =>
-		createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS, posts)
+// ---------------------- TOOGLE LIKE ACTION CREATORS ----------------------
+export const toggleLikeStart = withMatcher(
+	(postId: string): ToggleLikeStart =>
+		createAction(POST_ACTION_TYPES.TOGGLE_LIKE_START, postId)
 );
 
-export const fetchUserPostsFailed = withMatcher(
-	(error: Error): FetchUserPostsFailed =>
-		createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_FAILED, error)
+export const toggleLikeSuccess = withMatcher(
+	(posts: Post[]): ToggleLikeSuccess =>
+		createAction(POST_ACTION_TYPES.TOGGLE_LIKE_SUCCESS, posts)
+);
+
+export const toggleLikeFailed = withMatcher(
+	(error: Error): ToggleLikeFailed =>
+		createAction(POST_ACTION_TYPES.TOGGLE_LIKE_FAILED, error)
 );

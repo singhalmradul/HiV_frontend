@@ -18,7 +18,6 @@ const App = () => {
 	const { isLoading, signIn, userData } = useAuth();
 
 	useEffect(() => {
-
 		if (!isLoading && !userData) {
 			signIn();
 		}

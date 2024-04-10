@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { ReactComponent as CommentIcon } from "../../assets/comment.svg";
 import { Post as PostType } from '../../store/posts/posts.types';
 import LikeIcon from '../like-icon/like-icon.component';
@@ -15,12 +13,24 @@ import {
 	Text,
 	Username
 } from './post.styles';
+import { useDispatch } from 'react-redux';
+import { toggleLikeStart } from '../../store/posts/posts.action';
 
-const Post = ({ user: { displayName, avatar }, text, image, likes, comments }: PostType) => {
+const Post = ({
+	user: { displayName, avatar },
+	id,
+	text,
+	image,
+	likes,
+	comments,
+	isLiked
+}: PostType) => {
 
-	const [isLiked, setIsLiked] = useState(false);
+	const dispatch = useDispatch();
 
-	const toggleLike = () => { setIsLiked(!isLiked); };
+	const toggleLike = async () => {
+		dispatch(toggleLikeStart(id));
+	};
 
 	return (
 		<PostContainer>

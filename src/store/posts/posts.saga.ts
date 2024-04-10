@@ -1,46 +1,71 @@
-import { all, call, put, takeLatest } from 'typed-redux-saga/macro';
-import { fetchFeedPosts, fetchUserPosts } from '../../utils/backend/backend.utils';
+import { all, call, put, select, takeLatest } from 'typed-redux-saga/macro';
 import {
-	FetchUserPostsStart,
-	fetchFeedPostsFailed,
-	fetchFeedPostsSuccess,
-	fetchUserPostsFailed,
-	fetchUserPostsSuccess,
+	fetchPosts,
+	likePost,
+	unlikePost,
+} from '../../utils/backend/backend.utils';
+import {
+	FetchPostsStart,
+	ToggleLikeStart,
+	fetchPostsFailed,
+	fetchPostsSuccess,
+	toggleLikeFailed,
+	toggleLikeSuccess,
 } from './posts.action';
-import { POST_ACTION_TYPES } from './posts.types';
+import { POST_ACTION_TYPES, Post } from './posts.types';
+import { RootState } from '../store';
 
-export function* fetchUserPostsAsync({ payload: userId }: FetchUserPostsStart) {
+// ---------------------- SELECTORS ----------------------
+const selectUserId = (state: RootState) => state.user.user?.id;
+
+const selectPosts = (state: RootState) => state.posts.posts;
+// ---------------------- UTILS ----------------------
+export const updatePosts = (posts: Post[], post: Post) =>
+	posts.map((p) => (p.id === post.id ? post : p));
+// ---------------------- SAGAS ----------------------
+export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 	try {
-		const posts = yield* call(fetchUserPosts, userId);
-		yield* put(fetchUserPostsSuccess(posts));
+		const userId = yield* select(selectUserId);
+		const posts = yield* call(fetchPosts, userId, postType);
+
+		yield* put(fetchPostsSuccess(posts));
 	} catch (error) {
-		yield* put(fetchUserPostsFailed(error as Error));
+		yield* put(fetchPostsFailed(error as Error));
 	}
 }
 
-export function* fetchFeedPostsAsync({ payload: userId }: FetchUserPostsStart) {
+export function* toggleLikeAsync({ payload: postId }: ToggleLikeStart) {
 	try {
-		const posts = yield* call(fetchFeedPosts, userId);
-		yield* put(fetchFeedPostsSuccess(posts));
+		const posts = yield* select(selectPosts);
+		const post = posts.find((post) => post.id === postId);
+
+		if (!post) return;
+
+		const userId = yield* select(selectUserId);
+		yield* call(post.isLiked ? unlikePost : likePost, userId, postId);
+
+		yield* put(
+			toggleLikeSuccess(
+				updatePosts(posts, {
+					...post,
+					isLiked: !post.isLiked,
+					likes: post.isLiked ? post.likes - 1 : post.likes + 1,
+				})
+			)
+		);
 	} catch (error) {
-		yield* put(fetchFeedPostsFailed(error as Error));
+		yield* put(toggleLikeFailed(error as Error));
 	}
 }
-
-export function* onFetchUserPosts() {
-	yield* takeLatest(
-		POST_ACTION_TYPES.FETCH_USER_POSTS_START,
-		fetchUserPostsAsync
-	);
+// ---------------------- WATCHERS ----------------------
+export function* onFetchPosts() {
+	yield* takeLatest(POST_ACTION_TYPES.FETCH_POSTS_START, fetchPostsAsync);
 }
 
-export function* onFetchFeedPosts() {
-	yield* takeLatest(
-		POST_ACTION_TYPES.FETCH_FEED_POSTS_START,
-		fetchFeedPostsAsync
-	);
+export function* onLikePost() {
+	yield* takeLatest(POST_ACTION_TYPES.TOGGLE_LIKE_START, toggleLikeAsync);
 }
-
+// ---------------------- ROOT POSTS SAGA ----------------------
 export function* postsSaga() {
-	yield* all([call(onFetchUserPosts), call(onFetchFeedPosts)]);
+	yield* all([call(onFetchPosts), call(onLikePost)]);
 }

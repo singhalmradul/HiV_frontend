@@ -17,6 +17,7 @@ const Explore = () => {
 			'https://i.ibb.co/v38Zyks/robot-high-five.jpg',
 		likes: 1,
 		comments: 1,
+		isLiked: false,
 	};
 	const arr = [];
 	for (let f = 0; f < 36; f++) {
@@ -27,6 +28,8 @@ const Explore = () => {
 		newPost.text = post.text + ' ' + int;
 		newPost.likes = post.likes + int;
 		newPost.comments = post.comments + int;
+		newPost.id = post.id + int;
+		newPost.isLiked = int % 2 === 0;
 		return newPost;
 	});
 	return (
