@@ -18,9 +18,14 @@ import {
 } from './posts.action';
 import { POST_ACTION_TYPES, Post } from './posts.types';
 import { RootState } from '../store';
+import { setDisplayModal } from '../modal/modal.action';
 
 // ---------------------- SELECTORS ----------------------
 const selectUserId = (state: RootState) => state.user.user?.id ?? '';
+
+const selectUserDisplayName = (state: RootState) => state.user.user?.displayName ?? '';
+
+const selectUserAvatar = (state: RootState) => state.user.user?.avatar ?? '';
 
 const selectPosts = (state: RootState) => state.posts.posts;
 // ---------------------- UTILS ----------------------
@@ -42,12 +47,22 @@ export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 	try {
 		const userId = yield* select(selectUserId);
 		const post = yield* call(createPost, userId, textWithFile);
+
 		const posts = yield* select(selectPosts);
+		const userDisplayName = yield* select(selectUserDisplayName);
+		const userAvatar = yield* select(selectUserAvatar);
+		console.log(
+			post, typeof post);
+		post.user = { id: userId, displayName: userDisplayName, avatar: userAvatar };
+		post.likes = 0;
+		post.comments = 0;
+		post.isLiked = false;
 
 		const newPosts = [post];
 		newPosts.push(...posts);
 
 		yield* put(createPostSuccess(newPosts));
+		yield* put(setDisplayModal(false));
 	} catch (error) {
 		yield* put(createPostFailed(error as Error));
 	}

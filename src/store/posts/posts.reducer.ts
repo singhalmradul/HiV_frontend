@@ -1,5 +1,7 @@
 import { UnknownAction } from 'redux';
 import {
+	createPostFailed,
+	createPostSuccess,
 	fetchPostsFailed,
 	fetchPostsStart,
 	fetchPostsSuccess,
@@ -31,6 +33,12 @@ export const postsReducer = (
 	}
 	if (fetchPostsFailed.match(action)) {
 		return { ...state, error: action.payload, isLoading: false };
+	}
+	if (createPostSuccess.match(action)) {
+		return { ...state, posts: action.payload };
+	}
+	if (createPostFailed.match(action)) {
+		return { ...state, error: action.payload };
 	}
 	if (toggleLikeSuccess.match(action)) {
 		return { ...state, posts: action.payload };
