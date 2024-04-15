@@ -7,7 +7,7 @@ import {
 	ButtonText,
 	Buttons,
 	Header,
-	Image,
+	Embed,
 	PostContainer,
 	ProfilePicture,
 	Text,
@@ -20,7 +20,7 @@ const Post = ({
 	user: { displayName, avatar },
 	id,
 	text,
-	image,
+	embed,
 	likes,
 	comments,
 	isLiked
@@ -42,7 +42,7 @@ const Post = ({
 
 			<Text>{text}</Text>
 
-			{image && <Image src={image} alt={text} />}
+			{embed && <Embed src={embed} />}
 
 			<Buttons>
 

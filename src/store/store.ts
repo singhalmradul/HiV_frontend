@@ -4,7 +4,6 @@ import createSagaMiddleware from 'redux-saga';
 
 import { rootReducer } from './root-reducer';
 import { rootSaga } from './root-saga';
-import { AuthContext } from 'oidc-react';
 
 export type RootState = ReturnType<typeof rootReducer>;
 

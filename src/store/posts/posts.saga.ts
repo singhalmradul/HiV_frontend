@@ -1,12 +1,16 @@
 import { all, call, put, select, takeLatest } from 'typed-redux-saga/macro';
 import {
+	createPost,
 	fetchPosts,
 	likePost,
 	unlikePost,
 } from '../../utils/backend/backend.utils';
 import {
+	CreatePostStart,
 	FetchPostsStart,
 	ToggleLikeStart,
+	createPostFailed,
+	createPostSuccess,
 	fetchPostsFailed,
 	fetchPostsSuccess,
 	toggleLikeFailed,
@@ -16,7 +20,7 @@ import { POST_ACTION_TYPES, Post } from './posts.types';
 import { RootState } from '../store';
 
 // ---------------------- SELECTORS ----------------------
-const selectUserId = (state: RootState) => state.user.user?.id;
+const selectUserId = (state: RootState) => state.user.user?.id ?? '';
 
 const selectPosts = (state: RootState) => state.posts.posts;
 // ---------------------- UTILS ----------------------
@@ -31,6 +35,21 @@ export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 		yield* put(fetchPostsSuccess(posts));
 	} catch (error) {
 		yield* put(fetchPostsFailed(error as Error));
+	}
+}
+
+export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
+	try {
+		const userId = yield* select(selectUserId);
+		const post = yield* call(createPost, userId, textWithFile);
+		const posts = yield* select(selectPosts);
+
+		const newPosts = [post];
+		newPosts.push(...posts);
+
+		yield* put(createPostSuccess(newPosts));
+	} catch (error) {
+		yield* put(createPostFailed(error as Error));
 	}
 }
 
@@ -62,10 +81,13 @@ export function* onFetchPosts() {
 	yield* takeLatest(POST_ACTION_TYPES.FETCH_POSTS_START, fetchPostsAsync);
 }
 
+export function* onCreatePost() {
+	yield* takeLatest(POST_ACTION_TYPES.CREATE_POST_START, createPostAsync);
+}
 export function* onLikePost() {
 	yield* takeLatest(POST_ACTION_TYPES.TOGGLE_LIKE_START, toggleLikeAsync);
 }
 // ---------------------- ROOT POSTS SAGA ----------------------
 export function* postsSaga() {
-	yield* all([call(onFetchPosts), call(onLikePost)]);
+	yield* all([call(onFetchPosts), call(onLikePost), call(onCreatePost)]);
 }

@@ -11,10 +11,7 @@ const postUrl = (userId: string) => `${userUrl}/${userId}/posts`;
 
 const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
 
-export const fetchPosts = async (
-	userId: string | undefined,
-	postType: POST_TYPES
-) => {
+export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
 	if (!userId) return [];
 
 	let url;
@@ -36,7 +33,7 @@ export const fetchUser = async (id: string) => {
 	return response.data;
 };
 
-export const likePost = async (userId: string | undefined, postId: string) => {
+export const likePost = async (userId: string, postId: string) => {
 	if (!userId) return;
 
 	const response = await axios.post(likeUrl(postId), {
@@ -45,9 +42,35 @@ export const likePost = async (userId: string | undefined, postId: string) => {
 	return response.data;
 };
 
-export const unlikePost = async (userId: string | undefined, postId: string) => {
+export const unlikePost = async (userId: string, postId: string) => {
 	if (!userId) return;
 
 	const response = await axios.delete(`${likeUrl(postId)}/${userId}`);
+	return response.data;
+};
+export type TextWithFile = {
+	text: string | null;
+	file: File | null;
+};
+
+export const createPost = async (userId: string, textWithFile: TextWithFile) => {
+
+	const formData = new FormData();
+
+	if(textWithFile.text?.length)
+		formData.append('text', textWithFile.text);
+	if(textWithFile.file)
+		formData.append('embed', textWithFile.file);
+
+	const response = await axios.post<Post>(
+		postUrl(userId),
+		formData,
+		{
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		},
+	);
+	console.log(response.data)
 	return response.data;
 };
