@@ -13,14 +13,13 @@ const Explore = () => {
 		id: '0',
 		user,
 		text: 'caption',
-		image:
-			'https://i.ibb.co/v38Zyks/robot-high-five.jpg',
+		embed: 'https://i.ibb.co/v38Zyks/robot-high-five.jpg',
 		likes: 1,
 		comments: 1,
 		isLiked: false,
 	};
 	const arr = [];
-	for (let f = 0; f < 36; f++) {
+	for (let f = 0; f < 2; f++) {
 		arr.push(f);
 	}
 	const posts = arr.map((int): Post => {

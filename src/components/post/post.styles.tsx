@@ -9,9 +9,9 @@ export const PostContainer = styled.div`
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
-export const Image = styled.img`
+export const Embed = styled.embed`
 	width: 100%;
-	height: auto;
+	aspect-ratio: 1/1;
 	margin-top: 20px;
 	border-radius: 1cap;
 	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));

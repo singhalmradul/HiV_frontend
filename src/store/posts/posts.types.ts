@@ -5,6 +5,9 @@ export enum POST_ACTION_TYPES {
 	TOGGLE_LIKE_START = 'posts/TOGGLE_LIKE_START',
 	TOGGLE_LIKE_SUCCESS = 'posts/TOGGLE_LIKE_SUCCESS',
 	TOGGLE_LIKE_FAILED = 'posts/TOGGLE_LIKE_FAILED',
+	CREATE_POST_START = 'posts/CREATE_POST_START',
+	CREATE_POST_SUCCESS = 'posts/CREATE_POST_SUCCESS',
+	CREATE_POST_FAILED = 'posts/CREATE_POST_FAILED',
 }
 
 export type User = {
@@ -17,7 +20,7 @@ export type Post = {
 	id: string;
 	user: User;
 	text: string;
-	image: string | null;
+	embed: string | null;
 	likes: number;
 	comments: number;
 	isLiked: boolean;
