@@ -14,6 +14,7 @@
 	text-decoration: none;
 	color: #343a40;
 	font-size: 30px;
+    user-select: none;
 }
 
 .navigation-bar-container a:hover {

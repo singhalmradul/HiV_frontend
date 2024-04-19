@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 export const PostContainer = styled.div`
@@ -7,6 +8,11 @@ export const PostContainer = styled.div`
 	margin-bottom: 20px;
 	backdrop-filter: blur(10px);
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	&:hover {
+		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+	}
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 `;
 
 export const Embed = styled.embed`
@@ -18,45 +24,25 @@ export const Embed = styled.embed`
 	user-select: none;
 `;
 
-export const Username = styled.p`
-`;
 
 export const Text = styled.p`
 	margin: 0;
+	margin-top: 20px;
 	color: #110;
 	font-size: 20px;
 	color: #333;
-`;
-export const Header = styled.div`
-    display: flex;
-    align-items: center;
-	font-size: xx-large;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-	p {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-`;
-
-export const ProfilePicture = styled.img`
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	margin-right: 10px;
-	margin-bottom: 20px;
-	margin-top: 20px;
-	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
-	user-select: none;
 `;
 
 export const Buttons = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-top: 20px;
+	gap: 20px;
 `;
 
-export const Button = styled.div`
+type ButtonProps = HTMLAttributes<HTMLDivElement>;
+
+export const Button = styled.div<ButtonProps>`
 	display: flex;
 	align-items: center;
 	gap: 30px;
@@ -65,6 +51,9 @@ export const Button = styled.div`
 	padding: 20px;
 	font-size: x-large;
 	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	&:hover {
+		box-shadow: inset 3px 2px 3px rgba(0, 0, 0, 0.3);
+	}
 	user-select: none;
 	svg {
 		height: 50px;
@@ -84,6 +73,7 @@ export const ButtonText = styled.span`
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 	&:hover {
 		color: #0056b3;
+		transform: scale(1.3);
 	}
 	transition: color 0.3s ease;
 `;

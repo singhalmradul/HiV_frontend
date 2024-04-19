@@ -20,6 +20,7 @@
 	object-fit: cover;
 	min-width: 200px;
 	min-height: 200px;
+	user-select: none;
 }
 
 .bio {

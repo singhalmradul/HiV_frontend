@@ -34,3 +34,19 @@ html {
 	font-weight: 400;
 	font-style: normal;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #99999999;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-track {
+  background:#99999933;
+  border-radius: 30px;
+}

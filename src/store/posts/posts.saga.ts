@@ -2,36 +2,37 @@ import { all, call, put, select, takeLatest } from 'typed-redux-saga/macro';
 import {
 	createPost,
 	fetchPosts,
-	likePost,
-	unlikePost,
 } from '../../utils/backend/backend.utils';
 import {
 	CreatePostStart,
 	FetchPostsStart,
-	ToggleLikeStart,
 	createPostFailed,
 	createPostSuccess,
 	fetchPostsFailed,
 	fetchPostsSuccess,
-	toggleLikeFailed,
-	toggleLikeSuccess,
 } from './posts.action';
 import { POST_ACTION_TYPES, Post } from './posts.types';
 import { RootState } from '../store';
 import { setDisplayModal } from '../modal/modal.action';
 
-// ---------------------- SELECTORS ----------------------
+// MARK: ---------------------- SELECTORS ----------------------
+
 const selectUserId = (state: RootState) => state.user.user?.id ?? '';
 
-const selectUserDisplayName = (state: RootState) => state.user.user?.displayName ?? '';
+const selectUserDisplayName = (state: RootState) =>
+	state.user.user?.displayName ?? '';
 
 const selectUserAvatar = (state: RootState) => state.user.user?.avatar ?? '';
 
 const selectPosts = (state: RootState) => state.posts.posts;
-// ---------------------- UTILS ----------------------
+
+// MARK: ---------------------- UTILS ----------------------
+
 export const updatePosts = (posts: Post[], post: Post) =>
 	posts.map((p) => (p.id === post.id ? post : p));
-// ---------------------- SAGAS ----------------------
+
+// MARK: ---------------------- SAGAS ----------------------
+
 export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 	try {
 		const userId = yield* select(selectUserId);
@@ -51,9 +52,12 @@ export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 		const posts = yield* select(selectPosts);
 		const userDisplayName = yield* select(selectUserDisplayName);
 		const userAvatar = yield* select(selectUserAvatar);
-		console.log(
-			post, typeof post);
-		post.user = { id: userId, displayName: userDisplayName, avatar: userAvatar };
+		console.log(post, typeof post);
+		post.user = {
+			id: userId,
+			displayName: userDisplayName,
+			avatar: userAvatar,
+		};
 		post.likes = 0;
 		post.comments = 0;
 		post.isLiked = false;
@@ -68,30 +72,8 @@ export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 	}
 }
 
-export function* toggleLikeAsync({ payload: postId }: ToggleLikeStart) {
-	try {
-		const posts = yield* select(selectPosts);
-		const post = posts.find((post) => post.id === postId);
+// MARK: ---------------------- WATCHERS ----------------------
 
-		if (!post) return;
-
-		const userId = yield* select(selectUserId);
-		yield* call(post.isLiked ? unlikePost : likePost, userId, postId);
-
-		yield* put(
-			toggleLikeSuccess(
-				updatePosts(posts, {
-					...post,
-					isLiked: !post.isLiked,
-					likes: post.isLiked ? post.likes - 1 : post.likes + 1,
-				})
-			)
-		);
-	} catch (error) {
-		yield* put(toggleLikeFailed(error as Error));
-	}
-}
-// ---------------------- WATCHERS ----------------------
 export function* onFetchPosts() {
 	yield* takeLatest(POST_ACTION_TYPES.FETCH_POSTS_START, fetchPostsAsync);
 }
@@ -99,10 +81,12 @@ export function* onFetchPosts() {
 export function* onCreatePost() {
 	yield* takeLatest(POST_ACTION_TYPES.CREATE_POST_START, createPostAsync);
 }
-export function* onLikePost() {
-	yield* takeLatest(POST_ACTION_TYPES.TOGGLE_LIKE_START, toggleLikeAsync);
-}
-// ---------------------- ROOT POSTS SAGA ----------------------
+
+// MARK: ---------------------- ROOT POSTS SAGA ----------------------
+
 export function* postsSaga() {
-	yield* all([call(onFetchPosts), call(onLikePost), call(onCreatePost)]);
+	yield* all([
+		call(onFetchPosts),
+		call(onCreatePost),
+	]);
 }

@@ -17,6 +17,8 @@ export const ButtonContainer = styled.button`
   touch-action: manipulation;
   &:hover {
     transform: scale(1.1);
+    box-shadow: 3px 2px 3px rgba(0, 0, 0, 0.3);
   }
   margin: 20px;
+
 `;
