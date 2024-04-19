@@ -2,14 +2,16 @@ import axios from 'axios';
 
 import { POST_TYPES, Post } from '../../store/posts/posts.types';
 import { User } from '../../store/user/user.types';
+import { Comment } from '../../store/comments/comments.types';
+import { Like } from '../../store/likes/likes.types';
 
 const url = (endpoint: string) =>
 	`${process.env.REACT_APP_BACKEND_URL}/${endpoint}`;
 
 const userUrl = url('users');
 const postUrl = (userId: string) => `${userUrl}/${userId}/posts`;
-
 const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
+const commentUrl = (postId: string) => `${url('posts')}/${postId}/comments`;
 
 export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
 	if (!userId) return [];
@@ -34,8 +36,6 @@ export const fetchUser = async (id: string) => {
 };
 
 export const likePost = async (userId: string, postId: string) => {
-	if (!userId) return;
-
 	const response = await axios.post(likeUrl(postId), {
 		id: userId,
 	});
@@ -43,8 +43,6 @@ export const likePost = async (userId: string, postId: string) => {
 };
 
 export const unlikePost = async (userId: string, postId: string) => {
-	if (!userId) return;
-
 	const response = await axios.delete(`${likeUrl(postId)}/${userId}`);
 	return response.data;
 };
@@ -53,24 +51,47 @@ export type TextWithFile = {
 	file: File | null;
 };
 
-export const createPost = async (userId: string, textWithFile: TextWithFile) => {
-
+export const createPost = async (
+	userId: string,
+	textWithFile: TextWithFile
+) => {
 	const formData = new FormData();
 
-	if(textWithFile.text?.length)
-		formData.append('text', textWithFile.text);
-	if(textWithFile.file)
-		formData.append('embed', textWithFile.file);
+	if (textWithFile.text?.length) formData.append('text', textWithFile.text);
+	if (textWithFile.file) formData.append('embed', textWithFile.file);
 
-	const response = await axios.post<Post>(
-		postUrl(userId),
-		formData,
-		{
-			headers: {
-				'Content-Type': 'multipart/form-data',
-			},
+	const response = await axios.post<Post>(postUrl(userId), formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
 		},
-	);
-	console.log(response.data)
+	});
+	return response.data;
+};
+
+export type CommentWithoutUserId = {
+	text: string;
+	postId: string;
+};
+
+export const postComment = async (
+	userId: string,
+	postId: string,
+	text: string
+) => {
+	if (!text.trim().length) return;
+	const response = await axios.post(commentUrl(postId), {
+		userId,
+		text,
+	});
+	return response.data;
+};
+
+export const fetchComments = async (postId: string) => {
+	const response = await axios.get<Comment[]>(commentUrl(postId));
+	return response.data;
+};
+
+export const fetchLikes = async (postId: string) => {
+	const response = await axios.get<Like[]>(`${likeUrl(postId)}`);
 	return response.data;
 };

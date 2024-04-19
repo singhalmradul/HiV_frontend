@@ -7,7 +7,8 @@ import {
 
 import { POST_ACTION_TYPES, POST_TYPES, Post } from './posts.types';
 
-// ---------------------- FETCH POSTS ACTION TYPES ----------------------
+// MARK: ---------------------- FETCH POSTS ACTION TYPES ----------------------
+
 export type FetchPostsStart = ActionWithPayload<
 	POST_ACTION_TYPES.FETCH_POSTS_START,
 	POST_TYPES
@@ -23,7 +24,8 @@ export type FetchPostsFailed = ActionWithPayload<
 	Error
 >;
 
-// ---------------------- CREATE POST ACTION TYPES ----------------------
+// MARK: ---------------------- CREATE POST ACTION TYPES ----------------------
+
 export type CreatePostStart = ActionWithPayload<
 	POST_ACTION_TYPES.CREATE_POST_START,
 	TextWithFile
@@ -39,22 +41,8 @@ export type CreatePostFailed = ActionWithPayload<
 	Error
 >;
 
-// ---------------------- TOGGLE LIKE ACTION TYPES ----------------------
-export type ToggleLikeStart = ActionWithPayload<
-	POST_ACTION_TYPES.TOGGLE_LIKE_START,
-	string
->;
-export type ToggleLikeSuccess = ActionWithPayload<
-	POST_ACTION_TYPES.TOGGLE_LIKE_SUCCESS,
-	Post[]
->;
+// MARK: ---------------------- POSTS ACTION ----------------------
 
-export type ToggleLikeFailed = ActionWithPayload<
-	POST_ACTION_TYPES.TOGGLE_LIKE_FAILED,
-	Error
->;
-
-// ---------------------- POSTS ACTION ----------------------
 export type PostsAction =
 	| FetchPostsStart
 	| FetchPostsSuccess
@@ -62,11 +50,9 @@ export type PostsAction =
 	| CreatePostStart
 	| CreatePostSuccess
 	| CreatePostFailed
-	| ToggleLikeStart
-	| ToggleLikeSuccess
-	| ToggleLikeFailed;
 
-// ---------------------- FETCH POSTS ACTION CREATORS ----------------------
+// MARK: ---------------------- FETCH POSTS ACTION CREATORS ----------------------
+
 export const fetchPostsStart = withMatcher(
 	(postType: POST_TYPES): FetchPostsStart =>
 		createAction(POST_ACTION_TYPES.FETCH_POSTS_START, postType)
@@ -82,23 +68,8 @@ export const fetchPostsFailed = withMatcher(
 		createAction(POST_ACTION_TYPES.FETCH_POSTS_FAILED, error)
 );
 
-// ---------------------- TOOGLE LIKE ACTION CREATORS ----------------------
-export const toggleLikeStart = withMatcher(
-	(postId: string): ToggleLikeStart =>
-		createAction(POST_ACTION_TYPES.TOGGLE_LIKE_START, postId)
-);
+// MARK: ---------------------- CREATE POST ACTION CREATORS ----------------------
 
-export const toggleLikeSuccess = withMatcher(
-	(posts: Post[]): ToggleLikeSuccess =>
-		createAction(POST_ACTION_TYPES.TOGGLE_LIKE_SUCCESS, posts)
-);
-
-export const toggleLikeFailed = withMatcher(
-	(error: Error): ToggleLikeFailed =>
-		createAction(POST_ACTION_TYPES.TOGGLE_LIKE_FAILED, error)
-);
-
-// ---------------------- CREATE POST ACTION CREATORS ----------------------
 export const createPostStart = withMatcher(
 	(textWithFile: TextWithFile): CreatePostStart =>
 		createAction(POST_ACTION_TYPES.CREATE_POST_START, textWithFile)

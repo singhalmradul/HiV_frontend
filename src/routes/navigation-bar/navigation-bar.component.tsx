@@ -1,5 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
+
 import './navigation-bar.styles.css';
+
 const NavigationBar = () => {
 	return (
 		<div>

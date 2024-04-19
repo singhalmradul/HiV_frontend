@@ -1,20 +1,23 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { ReactComponent as CommentIcon } from "../../assets/comment.svg";
 import { Post as PostType } from '../../store/posts/posts.types';
 import LikeIcon from '../like-icon/like-icon.component';
+import Comments from '../comments/comments.component';
+import CommentBox from '../comment-box/comment-box.component';
 
 import {
 	Button,
 	ButtonText,
 	Buttons,
-	Header,
 	Embed,
 	PostContainer,
-	ProfilePicture,
 	Text,
-	Username
 } from './post.styles';
-import { useDispatch } from 'react-redux';
-import { toggleLikeStart } from '../../store/posts/posts.action';
+import { toggleLikeStart } from '../../store/likes/likes.action';
+import DisplayNameCard from '../display-name-card/display-name-card.component';
+import Likes from '../likes/likes.component';
 
 const Post = ({
 	user: { displayName, avatar },
@@ -26,38 +29,53 @@ const Post = ({
 	isLiked
 }: PostType) => {
 
+	const [showLikes, setShowLikes] = useState(false);
+	const [showComments, setShowComments] = useState(false);
+	const [showCommentBox, setShowCommentBox] = useState(false);
 	const dispatch = useDispatch();
 
 	const toggleLike = async () => {
 		dispatch(toggleLikeStart(id));
 	};
 
+	const handleShowLikes = () => {
+		setShowLikes(!showLikes);
+	}
+
+	const handleCommentIconClick = () => {
+		setShowComments(!showComments);
+	};
+
+	const handleShowCommentBox = () => {
+		setShowCommentBox(!showCommentBox);
+	};
+
+
 	return (
 		<PostContainer>
 
-			<Header>
-				<ProfilePicture src={avatar} alt={displayName} />
-				<Username>{displayName}</Username>
-			</Header>
+			<DisplayNameCard displayName={displayName} avatar={avatar} />
 
 			<Text>{text}</Text>
-
 			{embed && <Embed src={embed} />}
 
 			<Buttons>
 
 				<Button>
 					<LikeIcon isLiked={isLiked} onClick={toggleLike} />
-					<ButtonText>{likes}</ButtonText>
+					<ButtonText onClick={handleShowLikes}>{likes}</ButtonText>
 				</Button>
 
 				<Button>
-					<CommentIcon />
-					<ButtonText>{comments}</ButtonText>
+					<CommentIcon onClick={handleShowCommentBox} />
+					<ButtonText onClick={handleCommentIconClick}>{comments}</ButtonText>
 				</Button>
 
 			</Buttons>
-		</PostContainer>
+			{showLikes && <Likes postId={id} />}
+			{showCommentBox && <CommentBox postId={id} />}
+			{showComments && <Comments postId={id} />}
+		</PostContainer >
 	);
 };
 

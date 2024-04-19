@@ -53,6 +53,7 @@ export const ModalHeader = styled.div`
 `;
 
 export const TextArea = styled.textarea`
+  font-family: 'Caveat Brush', cursive;
   width: 100%;
   height: 100px;
   padding: 12px 20px;

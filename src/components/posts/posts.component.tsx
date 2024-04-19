@@ -1,9 +1,11 @@
 import { useSelector } from 'react-redux';
+
 import { Post as PostType } from '../../store/posts/posts.types';
-import Post from '../post/post.component';
-import './posts.styles.css';
 import { selectPostsIsLoading } from '../../store/posts/posts.selector';
+import Post from '../post/post.component';
 import Spinner from '../spinner/spinner.component';
+
+import './posts.styles.css';
 
 type PostProps = { posts: PostType[]; };
 const Posts = ({ posts }: PostProps) => {
