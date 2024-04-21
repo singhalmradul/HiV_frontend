@@ -13,9 +13,9 @@ export const CommentTextArea = styled.textarea`
 	resize: none;
     outline: none;
     box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
-    &:focus {
-        box-shadow: inset 3px 2px 3px rgba(0, 0, 0, 0.3);
-    }
+	&:focus {
+		box-shadow: inset 3px 2px 3px rgba(0, 0, 0, 0.3);
+	}
 `;
 export const CommentBoxContainer = styled.div`
     margin-top: 20px;

@@ -49,3 +49,9 @@
 .create-post:hover {
 	transform: scale(1.1);
 }
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
