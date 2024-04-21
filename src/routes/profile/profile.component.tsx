@@ -1,46 +1,36 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'oidc-react';
 
-import { selectUser, selectUserIsLoading } from '../../store/user/user.selector';
-import { selectPosts } from '../../store/posts/posts.selector';
-import { POST_TYPES } from '../../store/posts/posts.types';
-import { fetchPostsStart } from '../../store/posts/posts.action';
-import Spinner from '../../components/spinner/spinner.component';
-import Posts from '../../components/posts/posts.component';
-
-import './profile.styles.css';
 import Modal from '../../components/modal/modal.component';
 import { setDisplayModal } from '../../store/modal/modal.action';
 import Button from '../../components/button/button.component';
+import UserDetails from '../../components/user-details/user-details.component';
+
+import './profile.styles.css';
 
 const Profile = () => {
 
-    const userIsLoading = useSelector(selectUserIsLoading);
-    const user = useSelector(selectUser);
-    const userPosts = useSelector(selectPosts);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchPostsStart(POST_TYPES.USER_POSTS));
-    }, [user]);
+    const { signOutRedirect } = useAuth();
 
     const openModal = () => {
         dispatch(setDisplayModal(true));
     };
 
-    if (userIsLoading || !user) {
-        return <Spinner />;
-    }
+    const handleLogOut = () => {
+        signOutRedirect();
+    };
 
-    const { displayName, avatar, bio, username } = user;
+
 
     return (
         <div className='profile-container'>
-            <Button onClick={openModal}>create post</Button>
-            <h2 className='display-name'>{displayName}</h2>
-            {avatar && <img className='avatar' src={avatar} alt={username} />}
-            <p className='bio'>{bio}</p>
-            <Posts posts={userPosts} />
+            <div className='buttons'>
+                <Button onClick={openModal}>create post</Button>
+                <Button onClick={handleLogOut}>log out</Button>
+            </div>
+            <UserDetails />
             <Modal />
         </div>
     );
