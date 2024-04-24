@@ -28,6 +28,7 @@ const Profile = () => {
         <div className='profile-container'>
             <div className='buttons'>
                 <Button onClick={openModal}>create post</Button>
+                <Button>edit profile</Button>
                 <Button onClick={handleLogOut}>log out</Button>
             </div>
             <UserDetails />

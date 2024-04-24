@@ -12,7 +12,7 @@ const Modal = () => {
     const display = useSelector(selectDisplayModal);
 
     const [preview, setPreview] = useState<string | null>(null);
-    const [text, setText] = useState<string | null>(null);
+    const [text, setText] = useState<string>('');
     const [file, setFile] = useState<File | null>(null);
     const handlePreview = (event: ChangeEvent<HTMLInputElement>) => {
         const [file] = event?.target.files ?? [];
@@ -46,6 +46,10 @@ const Modal = () => {
     const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
         dispatch(createPostStart({ text, file }));
+        closeModal();
+        setText('');
+        setPreview(null);
+        setFile(null);
     };
 
     const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,7 +65,7 @@ const Modal = () => {
                     <h2>create post</h2>
                 </ModalHeader>
                 <ModalBody>
-                    <TextArea placeholder="what's on your mind?" onChange={handleTextChange} />
+                    <TextArea placeholder="what's on your mind?" onChange={handleTextChange} value={text} />
                     <FileInput onChange={handlePreview} />
                     {preview && <Embed src={preview} />}
                 </ModalBody>

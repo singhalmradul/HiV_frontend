@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 type ModalContainerProps = {
@@ -52,7 +53,7 @@ export const ModalHeader = styled.div`
 	user-select: none;
 `;
 
-export const TextArea = styled.textarea`
+export const TextArea = styled.textarea<HTMLAttributes<HTMLTextAreaElement>>`
   font-family: 'Caveat Brush', cursive;
   width: 100%;
   height: 100px;

@@ -15,16 +15,19 @@ import {
 	PostContainer,
 	Text,
 } from './post.styles';
-import { toggleLikeStart } from '../../store/likes/likes.action';
+import { fetchLikesStart, likePostStart, unlikePostStart } from '../../store/likes/likes.action';
 import DisplayNameCard from '../display-name-card/display-name-card.component';
 import Likes from '../likes/likes.component';
+import { fetchCommentsStart } from '../../store/comments/comments.action';
 
 const Post = ({
 	user: { displayName, avatar },
 	id,
 	text,
 	embed,
+	likesCount,
 	likes,
+	commentsCount,
 	comments,
 	isLiked
 }: PostType) => {
@@ -35,14 +38,19 @@ const Post = ({
 	const dispatch = useDispatch();
 
 	const toggleLike = async () => {
-		dispatch(toggleLikeStart(id));
+		if (isLiked)
+			dispatch(unlikePostStart(id));
+		else
+			dispatch(likePostStart(id));
 	};
 
 	const handleShowLikes = () => {
+		dispatch(fetchLikesStart(id));
 		setShowLikes(!showLikes);
-	}
+	};
 
 	const handleCommentIconClick = () => {
+		dispatch(fetchCommentsStart(id));
 		setShowComments(!showComments);
 	};
 
@@ -63,18 +71,18 @@ const Post = ({
 
 				<Button>
 					<LikeIcon isLiked={isLiked} onClick={toggleLike} />
-					<ButtonText onClick={handleShowLikes}>{likes}</ButtonText>
+					<ButtonText onClick={handleShowLikes}>{likesCount}</ButtonText>
 				</Button>
 
 				<Button>
 					<CommentIcon onClick={handleShowCommentBox} />
-					<ButtonText onClick={handleCommentIconClick}>{comments}</ButtonText>
+					<ButtonText onClick={handleCommentIconClick}>{commentsCount}</ButtonText>
 				</Button>
 
 			</Buttons>
-			{showLikes && <Likes postId={id} />}
+			{showLikes && likes && <Likes likes={likes} />}
 			{showCommentBox && <CommentBox postId={id} />}
-			{showComments && <Comments postId={id} />}
+			{showComments && comments && <Comments comments={comments} />}
 		</PostContainer >
 	);
 };
