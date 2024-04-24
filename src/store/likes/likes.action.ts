@@ -7,21 +7,37 @@ import { Post } from '../posts/posts.types';
 
 import { LIKE_ACTION_TYPES, Like } from './likes.types';
 
-// MARK: ---------------------- TOGGLE LIKE ACTION TYPES ----------------------
+// MARK: ---------------------- LIKE POST ACTION TYPES ----------------------
 
-export type ToggleLikeStart = ActionWithPayload<
-	LIKE_ACTION_TYPES.TOGGLE_LIKE_START,
+export type LikePostStart = ActionWithPayload<
+	LIKE_ACTION_TYPES.LIKE_POST_START,
 	string
 >;
-export type ToggleLikeSuccess = ActionWithPayload<
-	LIKE_ACTION_TYPES.TOGGLE_LIKE_SUCCESS,
+export type LikePostSuccess = ActionWithPayload<
+	LIKE_ACTION_TYPES.LIKE_POST_SUCCESS,
 	Post[]
 >;
 
-export type ToggleLikeFailed = ActionWithPayload<
-	LIKE_ACTION_TYPES.TOGGLE_LIKE_FAILED,
+export type LikePostFailed = ActionWithPayload<
+	LIKE_ACTION_TYPES.LIKE_POST_FAILED,
 	Error
 >;
+
+// MARK: ---------------------- UNLIKE POST ACTION TYPES ----------------------
+
+export type UnlikePostStart = ActionWithPayload<
+	LIKE_ACTION_TYPES.UNLIKE_POST_START,
+	string
+>;
+export type UnlikePostSuccess = ActionWithPayload<
+	LIKE_ACTION_TYPES.UNLIKE_POST_SUCCESS,
+	Post[]
+>;
+
+export type UnlikePostFailed = ActionWithPayload<
+	LIKE_ACTION_TYPES.UNLIKE_POST_FAILED,
+	Error
+	>;
 
 // MARK: ---------------------- FETCH LIKES ACTION TYPES ----------------------
 
@@ -32,7 +48,7 @@ export type FetchLikesStart = ActionWithPayload<
 
 export type FetchLikesSuccess = ActionWithPayload<
 	LIKE_ACTION_TYPES.FETCH_LIKES_SUCCESS,
-	Like[]
+	Post[]
 >;
 
 export type FetchLikesFailed = ActionWithPayload<
@@ -42,25 +58,42 @@ export type FetchLikesFailed = ActionWithPayload<
 // MARK: ---------------------- POSTS ACTION ----------------------
 
 export type LikesAction =
-	| ToggleLikeStart
-	| ToggleLikeSuccess
-	| ToggleLikeFailed;
+	| LikePostStart
+	| LikePostSuccess
+	| LikePostFailed;
 
-// MARK: ---------------------- TOOGLE LIKE ACTION CREATORS ----------------------
+// MARK: ---------------------- LIKE POST ACTION CREATORS ----------------------
 
-export const toggleLikeStart = withMatcher(
-	(postId: string): ToggleLikeStart =>
-		createAction(LIKE_ACTION_TYPES.TOGGLE_LIKE_START, postId)
+export const likePostStart = withMatcher(
+	(postId: string): LikePostStart =>
+		createAction(LIKE_ACTION_TYPES.LIKE_POST_START, postId)
 );
 
-export const toggleLikeSuccess = withMatcher(
-	(posts: Post[]): ToggleLikeSuccess =>
-		createAction(LIKE_ACTION_TYPES.TOGGLE_LIKE_SUCCESS, posts)
+export const likePostSuccess = withMatcher(
+	(posts: Post[]): LikePostSuccess =>
+		createAction(LIKE_ACTION_TYPES.LIKE_POST_SUCCESS, posts)
 );
 
-export const toggleLikeFailed = withMatcher(
-	(error: Error): ToggleLikeFailed =>
-		createAction(LIKE_ACTION_TYPES.TOGGLE_LIKE_FAILED, error)
+export const likePostFailed = withMatcher(
+	(error: Error): LikePostFailed =>
+		createAction(LIKE_ACTION_TYPES.LIKE_POST_FAILED, error)
+);
+
+// MARK: ---------------------- UNLIKE POST ACTION CREATORS ----------------------
+
+export const unlikePostStart = withMatcher(
+	(postId: string): UnlikePostStart =>
+		createAction(LIKE_ACTION_TYPES.UNLIKE_POST_START, postId)
+);
+
+export const unlikePostSuccess = withMatcher(
+	(posts: Post[]): UnlikePostSuccess =>
+		createAction(LIKE_ACTION_TYPES.UNLIKE_POST_SUCCESS, posts)
+);
+
+export const unlikePostFailed = withMatcher(
+	(error: Error): UnlikePostFailed =>
+		createAction(LIKE_ACTION_TYPES.UNLIKE_POST_FAILED, error)
 );
 
 // MARK: ---------------------- FETCH LIKES ACTION CREATORS ----------------------
@@ -71,8 +104,8 @@ export const fetchLikesStart = withMatcher(
 );
 
 export const fetchLikesSuccess = withMatcher(
-	(likes: Like[]): FetchLikesSuccess =>
-		createAction(LIKE_ACTION_TYPES.FETCH_LIKES_SUCCESS, likes)
+	(posts: Post[]): FetchLikesSuccess =>
+		createAction(LIKE_ACTION_TYPES.FETCH_LIKES_SUCCESS, posts)
 );
 
 export const fetchLikesFailed = withMatcher(

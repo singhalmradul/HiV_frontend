@@ -1,3 +1,6 @@
+import { Comment } from '../comments/comments.types';
+import { Like } from '../likes/likes.types';
+
 export enum POST_ACTION_TYPES {
 	FETCH_POSTS_START = 'posts/FETCH_POSTS_START',
 	FETCH_POSTS_SUCCESS = 'posts/FETCH_POSTS_SUCCESS',
@@ -18,12 +21,15 @@ export type Post = {
 	user: User;
 	text: string;
 	embed: string | null;
-	likes: number;
-	comments: number;
+	likesCount: number;
+	commentsCount: number;
 	isLiked: boolean;
+	likes?: Like[];
+	comments?: Comment[];
 };
 
 export enum POST_TYPES  {
 	USER_POSTS = 'user',
 	FEED_POSTS = 'feed',
+	EXPLORE_POSTS = 'explore',
 }

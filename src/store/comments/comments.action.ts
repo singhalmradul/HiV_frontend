@@ -6,7 +6,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 import { Post } from '../posts/posts.types';
 
-import { COMMENT_ACTION_TYPES, Comment } from './comments.types';
+import { COMMENT_ACTION_TYPES } from './comments.types';
 
 // MARK: ---------------------- POST COMMENT ACTION TYPES ----------------------
 
@@ -33,7 +33,7 @@ export type FetchCommentsStart = ActionWithPayload<
 
 export type FetchCommentsSuccess = ActionWithPayload<
 	COMMENT_ACTION_TYPES.FETCH_COMMENTS_SUCCESS,
-	Comment[]
+	Post[]
 >;
 
 export type FetchCommentsFailed = ActionWithPayload<
@@ -73,8 +73,8 @@ export const fetchCommentsStart = withMatcher(
 );
 
 export const fetchCommentsSuccess = withMatcher(
-	(comments: Comment[]): FetchCommentsSuccess =>
-		createAction(COMMENT_ACTION_TYPES.FETCH_COMMENTS_SUCCESS, comments)
+	(posts: Post[]): FetchCommentsSuccess =>
+		createAction(COMMENT_ACTION_TYPES.FETCH_COMMENTS_SUCCESS, posts)
 );
 
 export const fetchCommentsFailed = withMatcher(

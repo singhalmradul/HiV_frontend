@@ -7,8 +7,11 @@ import {
 	fetchPostsSuccess,
 } from './posts.action';
 import { Post } from './posts.types';
-import { toggleLikeSuccess } from '../likes/likes.action';
-import { postCommentSuccess } from '../comments/comments.action';
+import { fetchLikesSuccess, likePostSuccess, unlikePostSuccess } from '../likes/likes.action';
+import {
+	fetchCommentsSuccess,
+	postCommentSuccess,
+} from '../comments/comments.action';
 
 export type PostsState = {
 	readonly posts: Post[];
@@ -26,10 +29,19 @@ export const postsReducer = (
 	state = POSTS_INITIAL_STATE,
 	action = {} as UnknownAction
 ) => {
-	if (toggleLikeSuccess.match(action)) {
+	if (likePostSuccess.match(action)) {
+		return { ...state, posts: action.payload };
+	}
+	if (unlikePostSuccess.match(action)) {
 		return { ...state, posts: action.payload };
 	}
 	if (postCommentSuccess.match(action)) {
+		return { ...state, posts: action.payload };
+	}
+	if (fetchCommentsSuccess.match(action)) {
+		return { ...state, posts: action.payload };
+	}
+	if (fetchLikesSuccess.match(action)) {
 		return { ...state, posts: action.payload };
 	}
 	if (fetchPostsStart.match(action)) {

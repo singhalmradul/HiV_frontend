@@ -58,8 +58,8 @@ export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 			displayName: userDisplayName,
 			avatar: userAvatar,
 		};
-		post.likes = 0;
-		post.comments = 0;
+		post.likesCount = 0;
+		post.commentsCount = 0;
 		post.isLiked = false;
 
 		const newPosts = [post];

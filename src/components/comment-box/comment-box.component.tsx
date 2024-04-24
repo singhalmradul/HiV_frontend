@@ -12,15 +12,17 @@ const CommentBox = ({ postId }: CommentBoxProps) => {
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
+        if (!text.trim().length) return;
         dispatch(postCommentStart({ postId, text }));
-    }
+        setText('');
+    };
     const handleOnChange = ({ target: { value } }: ChangeEvent<HTMLTextAreaElement>) => {
         setText(value);
-    }
+    };
 
     return (
         <CommentBoxContainer>
-            <CommentTextArea placeholder="add a comment" onChange={handleOnChange} />
+            <CommentTextArea placeholder="add a comment" onChange={handleOnChange} value={text} />
             <Button onClick={handleSubmit}>
                 <ButtonText>comment</ButtonText>
             </Button>

@@ -25,7 +25,7 @@ const UserDetails = () => {
         else {
             dispatch(fetchPostsStart(POST_TYPES.USER_POSTS));
         }
-    },[user]
+    },[user, userData]
     );
     if (userIsLoading || !user) {
         return <Spinner />;

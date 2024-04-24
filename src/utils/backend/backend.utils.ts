@@ -24,6 +24,9 @@ export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
 		case POST_TYPES.FEED_POSTS:
 			url = `${postUrl(userId)}/feed`;
 			break;
+		case POST_TYPES.EXPLORE_POSTS:
+			url = `${postUrl(userId)}/explore`;
+			break;
 	}
 
 	const response = await axios.get<Post[]>(url);
@@ -78,11 +81,14 @@ export const postComment = async (
 	postId: string,
 	text: string
 ) => {
-	if (!text.trim().length) return;
-	const response = await axios.post(commentUrl(postId), {
+	const response = await axios.post<Comment>(commentUrl(postId), {
 		userId,
 		text,
-	});
+	},{
+		headers: {
+			'Content-Type': 'application/json',
+		}
+});
 	return response.data;
 };
 

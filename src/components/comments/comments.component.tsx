@@ -1,28 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { Comment } from '../../store/comments/comments.types';
 import CommentCard from '../comment-card/comment-card.component';
 import { CommentsContainer } from './comments.styles';
-import { useEffect } from 'react';
-import { fetchCommentsStart } from '../../store/comments/comments.action';
-import { selectComments, selectCommentsIsLoading } from '../../store/comments/comments.selector';
-import Spinner from '../spinner/spinner.component';
 
 type CommentsProps = {
-    postId: string;
+    comments: Comment[];
 };
-const Comments = ({ postId }: CommentsProps) => {
-
-    const comments = useSelector(selectComments);
-    const commentsIsLoading = useSelector(selectCommentsIsLoading);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchCommentsStart(postId));
-    },[postId]);
-
-    if (commentsIsLoading) {
-        return <Spinner />;
-    }
+const Comments = ({ comments }: CommentsProps) => {
 
     return (
         <CommentsContainer>
