@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAuth } from 'oidc-react';
 
 import Modal from '../../components/modal/modal.component';
@@ -7,6 +7,8 @@ import Button from '../../components/button/button.component';
 import UserDetails from '../../components/user-details/user-details.component';
 
 import './profile.styles.css';
+import { selectCurrentUserId } from '../../store/user/user.selector';
+import { persistor } from '../../store/store';
 
 const Profile = () => {
 
@@ -19,9 +21,11 @@ const Profile = () => {
     };
 
     const handleLogOut = () => {
+        persistor.purge();
         signOutRedirect();
     };
 
+    const userId = useSelector(selectCurrentUserId) as string;
 
 
     return (
@@ -31,7 +35,7 @@ const Profile = () => {
                 <Button>edit profile</Button>
                 <Button onClick={handleLogOut}>log out</Button>
             </div>
-            <UserDetails />
+            <UserDetails userId={userId} />
             <Modal />
         </div>
     );

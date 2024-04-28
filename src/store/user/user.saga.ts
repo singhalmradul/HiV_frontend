@@ -7,7 +7,7 @@ import {
 import { USER_ACTION_TYPES } from './user.types';
 import { fetchUser } from '../../utils/backend/backend.utils';
 
-export function* fetchUserAsync({ payload: id }: FetchUserDetialsStart) {
+export function* fetchUserAsync({ payload: { id } }: FetchUserDetialsStart) {
 	try {
 		const user = yield* call(fetchUser, id);
 		yield* put(fetchUserDetailsSuccess(user));

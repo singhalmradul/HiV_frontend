@@ -17,12 +17,12 @@ import { setDisplayModal } from '../modal/modal.action';
 
 // MARK: ---------------------- SELECTORS ----------------------
 
-const selectUserId = (state: RootState) => state.user.user?.id ?? '';
+const selectUserId = (state: RootState) => state.user.currentUser?.id ?? '';
 
 const selectUserDisplayName = (state: RootState) =>
-	state.user.user?.displayName ?? '';
+	state.user.currentUser?.displayName ?? '';
 
-const selectUserAvatar = (state: RootState) => state.user.user?.avatar ?? '';
+const selectUserAvatar = (state: RootState) => state.user.currentUser?.avatar ?? '';
 
 const selectPosts = (state: RootState) => state.posts.posts;
 

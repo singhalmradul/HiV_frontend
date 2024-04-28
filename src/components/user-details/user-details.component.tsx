@@ -4,41 +4,46 @@ import { selectUser, selectUserIsLoading } from '../../store/user/user.selector'
 import { selectPosts } from '../../store/posts/posts.selector';
 import Spinner from '../spinner/spinner.component';
 import { useEffect } from 'react';
-import { useAuth } from 'oidc-react';
 import { fetchUserDetailsStart } from '../../store/user/user.action';
 import { fetchPostsStart } from '../../store/posts/posts.action';
 import { POST_TYPES } from '../../store/posts/posts.types';
 
-const UserDetails = () => {
+import './user-details.styles.css';
+import { useNavigate } from 'react-router-dom';
+
+type UserDetailsProps = { userId: string; };
+const UserDetails = ({ userId }: UserDetailsProps) => {
 
     const userIsLoading = useSelector(selectUserIsLoading);
     const user = useSelector(selectUser);
     const userPosts = useSelector(selectPosts);
 
     const dispatch = useDispatch();
-    const { userData } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user && userData) {
-            dispatch(fetchUserDetailsStart(userData.profile.sub));
+        if (!user) {
+            dispatch(fetchUserDetailsStart(userId));
         }
         else {
             dispatch(fetchPostsStart(POST_TYPES.USER_POSTS));
         }
-    },[user, userData]
+    }, [user]
     );
-    if (userIsLoading || !user) {
+
+    if (!user) {
         return <Spinner />;
     }
 
     const { displayName, avatar, bio, username } = user;
 
-    return (<>
-        <h2 className='display-name'>{displayName}</h2>
-        {avatar && <img className='avatar' src={avatar} alt={username} />}
-        <p className='bio'>{bio}</p>
-        <Posts posts={userPosts} />
-    </>
+    return (
+        <>
+            <h2 className='display-name'>{displayName}</h2>
+            {avatar && <img className='avatar' src={avatar} alt={username} />}
+            <p className='bio'>{bio}</p>
+            <Posts posts={userPosts} />
+        </>
     );
 };
 

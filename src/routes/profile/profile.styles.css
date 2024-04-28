@@ -8,48 +8,6 @@
 	box-sizing: border-box;
 }
 
-.display-name {
-	font-size: 3.5em;
-	color: #333;
-}
-
-.avatar {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	object-fit: cover;
-	min-width: 200px;
-	min-height: 200px;
-	user-select: none;
-}
-
-.bio {
-	font-size: 2em;
-	color: #633;
-}
-
-.create-post {
-	background-color: #c2fbd7;
-	border-radius: 100px;
-	color: green;
-	cursor: pointer;
-	display: inline-block;
-	font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
-	padding: 7px 20px;
-	text-align: center;
-	text-decoration: none;
-	transition: all 250ms;
-	border: 0;
-	font-size: 16px;
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
-}
-
-.create-post:hover {
-	transform: scale(1.1);
-}
-
 .buttons {
 	display: flex;
 	flex-direction: row;

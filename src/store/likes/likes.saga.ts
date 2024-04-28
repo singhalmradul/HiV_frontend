@@ -21,7 +21,7 @@ import { Post } from '../posts/posts.types';
 
 // MARK: ---------------------- SELECTORS ----------------------
 
-const selectUser = (state: RootState) => state.user.user;
+const selectUser = (state: RootState) => state.user.currentUser;
 
 const selectPosts = (state: RootState) => state.posts.posts;
 

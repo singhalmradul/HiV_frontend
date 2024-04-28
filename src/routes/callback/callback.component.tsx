@@ -14,11 +14,9 @@ const Callback = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!isLoading && !userData) {
+        if (!isLoading && userData) {
+            dispatch(fetchUserDetailsStart( userData.profile.sub, true));
             navigate('/');
-        }
-        else if (userData) {
-            dispatch(fetchUserDetailsStart(userData.profile.sub));
         }
     }, [isLoading, userData]);
 

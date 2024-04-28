@@ -5,9 +5,10 @@ import App from './app';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { store, persistor } from './store/store';
 import { AuthProvider } from 'oidc-react';
 import { oidcConfig } from './utils/oidc/oidc.utils';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -16,9 +17,11 @@ root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<Provider store={store}>
-				<AuthProvider {...oidcConfig}>
-					<App />
-				</AuthProvider>
+				<PersistGate loading={null} persistor={persistor}>
+					<AuthProvider {...oidcConfig}>
+						<App />
+					</AuthProvider>
+				</PersistGate>
 			</Provider>
 		</BrowserRouter>
 	</React.StrictMode>

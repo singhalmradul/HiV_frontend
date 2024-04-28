@@ -5,9 +5,13 @@ import {
 } from '../../utils/reducer/reducer.utils';
 import { USER_ACTION_TYPES, User } from './user.types';
 
+type FetchUserDetailsStartParams = {
+	isCurrentUser?: boolean;
+	id: string;
+};
 export type FetchUserDetialsStart = ActionWithPayload<
 	USER_ACTION_TYPES.FETCH_USER_DETIALS_START,
-	string
+	FetchUserDetailsStartParams
 >;
 
 export type FetchUserDetailsSuccess = ActionWithPayload<
@@ -26,8 +30,11 @@ export type UserAction =
 	| FetchUserDetailsFailed;
 
 export const fetchUserDetailsStart = withMatcher(
-	(id: string): FetchUserDetialsStart =>
-		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, id)
+	(userId: string, isCurrentUser = false): FetchUserDetialsStart =>
+		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, {
+			id: userId,
+			isCurrentUser,
+		})
 );
 
 export const fetchUserDetailsSuccess = withMatcher(

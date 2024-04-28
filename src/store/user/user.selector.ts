@@ -3,19 +3,19 @@ import { createSelector } from 'reselect';
 import { RootState } from '../store';
 import { UserState } from './user.reducer';
 
-const selectUserReducer = (state: RootState): UserState => state.user;
+const selectUserSlice = (state: RootState): UserState => state.user;
 
 export const selectUser = createSelector(
-	[selectUserReducer],
-	(userSlice) => userSlice.user
+	[selectUserSlice],
+	(userSlice) => userSlice.currentUser
 );
 
 export const selectUserIsLoading = createSelector(
-	[selectUserReducer],
+	[selectUserSlice],
 	(userSlice) => userSlice.isLoading
 );
 
-export const selectUserId = createSelector(
+export const selectCurrentUserId = createSelector(
 	[selectUser],
 	(user) => user?.id
 );
