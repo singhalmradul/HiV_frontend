@@ -5,11 +5,11 @@ import { Separator } from './comment-card.styles';
 type CommentCardProps = {
     comment: Comment;
 };
-const CommentCard = ({ comment: { user: { displayName, avatar }, text } }: CommentCardProps) => {
+const CommentCard = ({ comment: { user, text } }: CommentCardProps) => {
     return (
         <div>
             <Separator />
-            <DisplayNameCard displayName={displayName} avatar={avatar} />
+            <DisplayNameCard user={user} />
             <p>{text}</p>
         </div>
     );

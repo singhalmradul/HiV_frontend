@@ -10,8 +10,8 @@ type LikesProps = {
 const Likes = ({ likes }: LikesProps) => {
     return (
         <LikesContainer>
-            {likes.map(({ user: { displayName, avatar, id } }) => (
-                <DisplayNameCard displayName={displayName} avatar={avatar} key={id} />
+            {likes.map(({ user }) => (
+                <DisplayNameCard user={user} key={user.id} />
             ))}
         </LikesContainer>
     );

@@ -7,6 +7,11 @@ const selectUserSlice = (state: RootState): UserState => state.user;
 
 export const selectUser = createSelector(
 	[selectUserSlice],
+	(userSlice) => userSlice.user
+);
+
+export const selectCurrentUser = createSelector(
+	[selectUserSlice],
 	(userSlice) => userSlice.currentUser
 );
 
@@ -16,6 +21,16 @@ export const selectUserIsLoading = createSelector(
 );
 
 export const selectCurrentUserId = createSelector(
-	[selectUser],
+	[selectCurrentUser],
 	(user) => user?.id
+);
+
+export const selectIsUserFollowed = createSelector(
+	[selectUser],
+	(user) => user?.isFollowed
+);
+
+export const selectUserError = createSelector(
+	[selectUserSlice],
+	(userSlice) => userSlice.error
 );

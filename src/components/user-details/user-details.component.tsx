@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Posts from '../posts/posts.component';
-import { selectUser, selectUserIsLoading } from '../../store/user/user.selector';
+import { selectUser, selectUserError, selectUserIsLoading } from '../../store/user/user.selector';
 import { selectPosts } from '../../store/posts/posts.selector';
 import Spinner from '../spinner/spinner.component';
 import { useEffect } from 'react';
@@ -17,21 +17,25 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
     const userIsLoading = useSelector(selectUserIsLoading);
     const user = useSelector(selectUser);
     const userPosts = useSelector(selectPosts);
+    const userError = useSelector(selectUserError);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     useEffect(() => {
-        if (!user) {
+        if (userError) {
+            navigate('/');
+        }
+        if (!userIsLoading && user?.id !== userId) {
             dispatch(fetchUserDetailsStart(userId));
         }
         else {
             dispatch(fetchPostsStart(POST_TYPES.USER_POSTS));
         }
-    }, [user]
+        // eslint-disable-next-line
+    }, [userIsLoading, user]
     );
 
-    if (!user) {
+    if (userIsLoading || !user) {
         return <Spinner />;
     }
 

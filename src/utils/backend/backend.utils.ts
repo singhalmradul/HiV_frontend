@@ -33,8 +33,10 @@ export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
 	return response.data;
 };
 
-export const fetchUser = async (id: string) => {
-	const response = await axios.get<User>(`${userUrl}/${id}`);
+export const fetchUser = async (id: string, userId: string) => {
+	const response = await axios.get<User>(`${userUrl}/${id}`, {
+		params: { userId },
+	});
 	return response.data;
 };
 
@@ -81,14 +83,18 @@ export const postComment = async (
 	postId: string,
 	text: string
 ) => {
-	const response = await axios.post<Comment>(commentUrl(postId), {
-		userId,
-		text,
-	},{
-		headers: {
-			'Content-Type': 'application/json',
+	const response = await axios.post<Comment>(
+		commentUrl(postId),
+		{
+			userId,
+			text,
+		},
+		{
+			headers: {
+				'Content-Type': 'application/json',
+			},
 		}
-});
+	);
 	return response.data;
 };
 

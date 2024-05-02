@@ -6,7 +6,7 @@ import {
 import { USER_ACTION_TYPES, User } from './user.types';
 
 type FetchUserDetailsStartParams = {
-	isCurrentUser?: boolean;
+	isCurrentUser: boolean;
 	id: string;
 };
 export type FetchUserDetialsStart = ActionWithPayload<
@@ -19,6 +19,11 @@ export type FetchUserDetailsSuccess = ActionWithPayload<
 	User
 >;
 
+export type FetchCurrentUserDetailsSuccess = ActionWithPayload<
+	USER_ACTION_TYPES.FETCH_CURRENT_USER_DETAILS_SUCCESS,
+	User
+>;
+
 export type FetchUserDetailsFailed = ActionWithPayload<
 	USER_ACTION_TYPES.FETCH_USER_DETAILS_FAILED,
 	Error
@@ -27,7 +32,8 @@ export type FetchUserDetailsFailed = ActionWithPayload<
 export type UserAction =
 	| FetchUserDetialsStart
 	| FetchUserDetailsSuccess
-	| FetchUserDetailsFailed;
+	| FetchUserDetailsFailed
+	| FetchCurrentUserDetailsSuccess;
 
 export const fetchUserDetailsStart = withMatcher(
 	(userId: string, isCurrentUser = false): FetchUserDetialsStart =>
@@ -35,6 +41,11 @@ export const fetchUserDetailsStart = withMatcher(
 			id: userId,
 			isCurrentUser,
 		})
+);
+
+export const fetchCurrentUserDetailsSuccess = withMatcher(
+	(user: User): FetchCurrentUserDetailsSuccess =>
+		createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_DETAILS_SUCCESS, user)
 );
 
 export const fetchUserDetailsSuccess = withMatcher(

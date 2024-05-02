@@ -2,14 +2,24 @@ import { all, call, put, takeLatest } from 'typed-redux-saga/macro';
 import {
 	FetchUserDetialsStart,
 	fetchUserDetailsFailed,
+	fetchCurrentUserDetailsSuccess,
 	fetchUserDetailsSuccess,
 } from './user.action';
 import { USER_ACTION_TYPES } from './user.types';
 import { fetchUser } from '../../utils/backend/backend.utils';
 
-export function* fetchUserAsync({ payload: { id } }: FetchUserDetialsStart) {
+let currentUserId: string | null = null;
+export function* fetchUserAsync({
+	payload: { id, isCurrentUser },
+}: FetchUserDetialsStart) {
 	try {
-		const user = yield* call(fetchUser, id);
+		if (isCurrentUser) {
+			currentUserId = id;
+		}
+		const user = yield* call(fetchUser, id, currentUserId as string);
+		if (isCurrentUser) {
+			yield* put(fetchCurrentUserDetailsSuccess(user));
+		}
 		yield* put(fetchUserDetailsSuccess(user));
 	} catch (error) {
 		yield* put(fetchUserDetailsFailed(error as Error));

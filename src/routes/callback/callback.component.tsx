@@ -18,6 +18,7 @@ const Callback = () => {
             dispatch(fetchUserDetailsStart( userData.profile.sub, true));
             navigate('/');
         }
+        // eslint-disable-next-line
     }, [isLoading, userData]);
 
     return (
