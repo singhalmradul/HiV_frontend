@@ -5,13 +5,13 @@ import {
 	withMatcher,
 } from '../../utils/reducer/reducer.utils';
 
-import { POST_ACTION_TYPES, POST_TYPES, Post } from './posts.types';
+import { POST_ACTION_TYPES, POST_TYPE, Post } from './posts.types';
 
 // MARK: ---------------------- FETCH POSTS ACTION TYPES ----------------------
 
 export type FetchPostsStart = ActionWithPayload<
 	POST_ACTION_TYPES.FETCH_POSTS_START,
-	POST_TYPES
+	POST_TYPE
 >;
 
 export type FetchPostsSuccess = ActionWithPayload<
@@ -54,7 +54,7 @@ export type PostsAction =
 // MARK: ---------------------- FETCH POSTS ACTION CREATORS ----------------------
 
 export const fetchPostsStart = withMatcher(
-	(postType: POST_TYPES): FetchPostsStart =>
+	(postType: POST_TYPE): FetchPostsStart =>
 		createAction(POST_ACTION_TYPES.FETCH_POSTS_START, postType)
 );
 

@@ -1,8 +1,5 @@
 import { all, call, put, select, takeLatest } from 'typed-redux-saga/macro';
-import {
-	createPost,
-	fetchPosts,
-} from '../../utils/backend/backend.utils';
+import { createPost, fetchPosts } from '../../utils/backend/backend.utils';
 import {
 	CreatePostStart,
 	FetchPostsStart,
@@ -11,10 +8,10 @@ import {
 	fetchPostsFailed,
 	fetchPostsSuccess,
 } from './posts.action';
-import { POST_ACTION_TYPES, Post } from './posts.types';
+import { POST_ACTION_TYPES, POST_TYPE, Post } from './posts.types';
 import { RootState } from '../store';
 import { setDisplayModal } from '../modal/modal.action';
-import { selectUserId } from '../user/user.selector';
+import { selectCurrentUserId, selectUserId } from '../user/user.selector';
 
 // MARK: ---------------------- SELECTORS ----------------------
 
@@ -34,9 +31,10 @@ export const updatePosts = (posts: Post[], post: Post) =>
 
 export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 	try {
-		const userId = yield* select(selectUserId);
+		const userId = yield* select(
+			postType === POST_TYPE.FEED_POSTS ? selectCurrentUserId : selectUserId
+		);
 		const posts = yield* call(fetchPosts, userId, postType);
-
 		yield* put(fetchPostsSuccess(posts));
 	} catch (error) {
 		yield* put(fetchPostsFailed(error as Error));
@@ -51,7 +49,6 @@ export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 		const posts = yield* select(selectPosts);
 		const userDisplayName = yield* select(selectUserDisplayName);
 		const userAvatar = yield* select(selectUserAvatar);
-		console.log(post, typeof post);
 		post.user = {
 			id: userId,
 			displayName: userDisplayName,
@@ -84,8 +81,5 @@ export function* onCreatePost() {
 // MARK: ---------------------- ROOT POSTS SAGA ----------------------
 
 export function* postsSaga() {
-	yield* all([
-		call(onFetchPosts),
-		call(onCreatePost),
-	]);
+	yield* all([call(onFetchPosts), call(onCreatePost)]);
 }

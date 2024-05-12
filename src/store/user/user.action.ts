@@ -6,13 +6,9 @@ import {
 } from '../../utils/reducer/reducer.utils';
 import { USER_ACTION_TYPES, User } from './user.types';
 
-type FetchUserDetailsStartParams = {
-	isCurrentUser: boolean;
-	id: string;
-};
 export type FetchUserDetialsStart = ActionWithPayload<
 	USER_ACTION_TYPES.FETCH_USER_DETIALS_START,
-	FetchUserDetailsStartParams
+	string
 >;
 
 export type FetchUserDetailsSuccess = ActionWithPayload<
@@ -20,9 +16,9 @@ export type FetchUserDetailsSuccess = ActionWithPayload<
 	User
 >;
 
-export type FetchCurrentUserDetailsSuccess = ActionWithPayload<
-	USER_ACTION_TYPES.FETCH_CURRENT_USER_DETAILS_SUCCESS,
-	User
+export type SetCurrentUserId = ActionWithPayload<
+	USER_ACTION_TYPES.SET_CURRENT_USER_ID,
+	string
 >;
 
 export type FetchUserDetailsFailed = ActionWithPayload<
@@ -54,23 +50,14 @@ export type UnfollowUserFailed = ActionWithPayload<
 	Error
 >;
 
-export type UserAction =
-	| FetchUserDetialsStart
-	| FetchUserDetailsSuccess
-	| FetchUserDetailsFailed
-	| FetchCurrentUserDetailsSuccess;
-
 export const fetchUserDetailsStart = withMatcher(
-	(userId: string, isCurrentUser = false): FetchUserDetialsStart =>
-		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, {
-			id: userId,
-			isCurrentUser,
-		})
+	(id: string): FetchUserDetialsStart =>
+		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, id)
 );
 
-export const fetchCurrentUserDetailsSuccess = withMatcher(
-	(user: User): FetchCurrentUserDetailsSuccess =>
-		createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_DETAILS_SUCCESS, user)
+export const setCurrentUserId = withMatcher(
+	(id: string): SetCurrentUserId =>
+		createAction(USER_ACTION_TYPES.SET_CURRENT_USER_ID, id)
 );
 
 export const fetchUserDetailsSuccess = withMatcher(

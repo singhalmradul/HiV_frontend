@@ -2,7 +2,7 @@ import { UnknownAction } from 'redux';
 import {
 	fetchUserDetailsFailed,
 	fetchUserDetailsStart,
-	fetchCurrentUserDetailsSuccess,
+	setCurrentUserId,
 	fetchUserDetailsSuccess,
 	followUserSuccess,
 	unfollowUserSuccess,
@@ -10,14 +10,14 @@ import {
 import { User } from './user.types';
 
 export type UserState = {
-	readonly currentUser: User | null;
+	readonly currentUserId: string | null;
 	readonly user: User | null;
 	readonly isLoading: boolean;
 	readonly error: Error | null;
 };
 
 const USER_INITIAL_STATE: UserState = {
-	currentUser: null,
+	currentUserId: null,
 	user: null,
 	isLoading: false,
 	error: null,
@@ -30,8 +30,8 @@ export const userReducer = (
 	if (fetchUserDetailsStart.match(action)) {
 		return { ...state, isLoading: true, error: null};
 	}
-	if (fetchCurrentUserDetailsSuccess.match(action)) {
-		return { ...state, currentUser: action.payload, isLoading: false };
+	if (setCurrentUserId.match(action)) {
+		return { ...state, currentUserId: action.payload, isLoading: false };
 	}
 	if (fetchUserDetailsSuccess.match(action)) {
 		return { ...state, user: action.payload, isLoading: false };

@@ -4,7 +4,7 @@ import Posts from '../../components/posts/posts.component';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPosts } from '../../store/posts/posts.selector';
 import { fetchPostsStart } from '../../store/posts/posts.action';
-import { POST_TYPES } from '../../store/posts/posts.types';
+import { POST_TYPE } from '../../store/posts/posts.types';
 
 const Home = () => {
 
@@ -12,9 +12,9 @@ const Home = () => {
 
 	const posts = useSelector(selectPosts)
 
-
 	useEffect(() => {
-			dispatch(fetchPostsStart(POST_TYPES.FEED_POSTS))
+		dispatch(fetchPostsStart(POST_TYPE.FEED_POSTS))
+		// eslint-disable-next-line
 	}, []);
 
 

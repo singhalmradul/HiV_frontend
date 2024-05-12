@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import Spinner from '../../components/spinner/spinner.component';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'oidc-react';
-import { useDispatch } from 'react-redux';
-import { fetchUserDetailsStart } from '../../store/user/user.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUserId } from '../../store/user/user.action';
+import { selectCurrentUserId } from '../../store/user/user.selector';
 
 const Callback = () => {
 
@@ -12,10 +13,12 @@ const Callback = () => {
 
     const { isLoading, userData } = useAuth();
     const dispatch = useDispatch();
-
+    const userId = useSelector(selectCurrentUserId);
     useEffect(() => {
         if (!isLoading && userData) {
-            dispatch(fetchUserDetailsStart( userData.profile.sub, true));
+            if (userData.profile.sub !== userId) {
+                dispatch(setCurrentUserId(userData.profile.sub));
+            }
             navigate('/');
         }
         // eslint-disable-next-line

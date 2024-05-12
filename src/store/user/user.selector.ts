@@ -10,19 +10,14 @@ export const selectUser = createSelector(
 	(userSlice) => userSlice.user
 );
 
-export const selectCurrentUser = createSelector(
+export const selectCurrentUserId = createSelector(
 	[selectUserSlice],
-	(userSlice) => userSlice.currentUser
+	(userSlice) => userSlice.currentUserId ?? ''
 );
 
 export const selectUserIsLoading = createSelector(
 	[selectUserSlice],
 	(userSlice) => userSlice.isLoading
-);
-
-export const selectCurrentUserId = createSelector(
-	[selectCurrentUser],
-	(user) => user?.id ?? ''
 );
 
 export const selectUserId = createSelector(
@@ -32,7 +27,7 @@ export const selectUserId = createSelector(
 
 export const selectIsUserFollowed = createSelector(
 	[selectUser],
-	(user) => user?.isFollowed?? false
+	(user) => user?.isFollowed ?? false
 );
 
 export const selectUserError = createSelector(

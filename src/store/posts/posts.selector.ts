@@ -8,6 +8,7 @@ export const selectPosts = createSelector(
 	[selectPostsReducer],
 	(postsSlice) => postsSlice.posts
 );
+
 export const selectPostsIsLoading = createSelector(
 	[selectPostsReducer],
 	(postsSlice) => postsSlice.isLoading

@@ -28,7 +28,7 @@ export type Post = {
 	comments?: Comment[];
 };
 
-export enum POST_TYPES  {
+export enum POST_TYPE  {
 	USER_POSTS = 'user',
 	FEED_POSTS = 'feed',
 	EXPLORE_POSTS = 'explore',

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Posts from '../../components/posts/posts.component';
-import { POST_TYPES, Post, User } from '../../store/posts/posts.types';
+import { POST_TYPE } from '../../store/posts/posts.types';
 import { selectPosts } from '../../store/posts/posts.selector';
 import { fetchPostsStart } from '../../store/posts/posts.action';
 import { useEffect } from 'react';
@@ -13,7 +13,8 @@ const Explore = () => {
 
 
 	useEffect(() => {
-		dispatch(fetchPostsStart(POST_TYPES.EXPLORE_POSTS));
+		dispatch(fetchPostsStart(POST_TYPE.EXPLORE_POSTS));
+		// eslint-disable-next-line
 	}, []);
 
 	return (

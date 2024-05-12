@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { POST_TYPES, Post } from '../../store/posts/posts.types';
+import { POST_TYPE, Post } from '../../store/posts/posts.types';
 import { User } from '../../store/user/user.types';
 import { Comment } from '../../store/comments/comments.types';
 import { Like } from '../../store/likes/likes.types';
@@ -14,18 +14,18 @@ const followUrl = (userId: string, followId: string) => `${userUrl}/${userId}/fo
 const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
 const commentUrl = (postId: string) => `${url('posts')}/${postId}/comments`;
 
-export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
+export const fetchPosts = async (userId: string, postType: POST_TYPE) => {
 	if (!userId) return [];
 
 	let url;
 	switch (postType) {
-		case POST_TYPES.USER_POSTS:
+		case POST_TYPE.USER_POSTS:
 			url = postUrl(userId);
 			break;
-		case POST_TYPES.FEED_POSTS:
+		case POST_TYPE.FEED_POSTS:
 			url = `${postUrl(userId)}/feed`;
 			break;
-		case POST_TYPES.EXPLORE_POSTS:
+		case POST_TYPE.EXPLORE_POSTS:
 			url = `${postUrl(userId)}/explore`;
 			break;
 	}

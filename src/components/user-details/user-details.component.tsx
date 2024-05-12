@@ -6,7 +6,7 @@ import Spinner from '../spinner/spinner.component';
 import { useEffect } from 'react';
 import { fetchUserDetailsStart } from '../../store/user/user.action';
 import { fetchPostsStart } from '../../store/posts/posts.action';
-import { POST_TYPES } from '../../store/posts/posts.types';
+import { POST_TYPE } from '../../store/posts/posts.types';
 
 import './user-details.styles.css';
 import { useNavigate } from 'react-router-dom';
@@ -29,7 +29,7 @@ const UserDetails = ({ userId }: UserDetailsProps) => {
             dispatch(fetchUserDetailsStart(userId));
         }
         else {
-            dispatch(fetchPostsStart(POST_TYPES.USER_POSTS));
+            dispatch(fetchPostsStart(POST_TYPE.USER_POSTS));
         }
         // eslint-disable-next-line
     }, [userIsLoading, user]

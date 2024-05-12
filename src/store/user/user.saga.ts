@@ -2,7 +2,6 @@ import { all, call, put, select, takeLatest } from 'typed-redux-saga/macro';
 import {
 	FetchUserDetialsStart,
 	fetchUserDetailsFailed,
-	fetchCurrentUserDetailsSuccess,
 	fetchUserDetailsSuccess,
 	followUserSuccess,
 	followUserFailed,
@@ -17,16 +16,12 @@ import {
 } from './user.selector';
 
 export function* fetchUserAsync({
-	payload: { id, isCurrentUser },
+	payload: id,
 }: FetchUserDetialsStart) {
 	try {
 		const currentUserId = yield* select(selectCurrentUserId);
 		const user = yield* call(fetchUser, id, currentUserId);
-		if (isCurrentUser) {
-			yield* put(fetchCurrentUserDetailsSuccess(user));
-		} else {
-			yield* put(fetchUserDetailsSuccess(user));
-		}
+		yield* put(fetchUserDetailsSuccess(user));
 	} catch (error) {
 		yield* put(fetchUserDetailsFailed(error as Error));
 	}
