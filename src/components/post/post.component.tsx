@@ -21,7 +21,7 @@ import Likes from '../likes/likes.component';
 import { fetchCommentsStart } from '../../store/comments/comments.action';
 
 const Post = ({
-	user: { displayName, avatar },
+	user,
 	id,
 	text,
 	embed,
@@ -62,7 +62,7 @@ const Post = ({
 	return (
 		<PostContainer>
 
-			<DisplayNameCard displayName={displayName} avatar={avatar} />
+			<DisplayNameCard user={user} />
 
 			<Text>{text}</Text>
 			{embed && <Embed src={embed} />}

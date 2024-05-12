@@ -6,7 +6,7 @@ import {
 	fetchPostsStart,
 	fetchPostsSuccess,
 } from './posts.action';
-import { Post } from './posts.types';
+import { POST_TYPE, Post } from './posts.types';
 import { fetchLikesSuccess, likePostSuccess, unlikePostSuccess } from '../likes/likes.action';
 import {
 	fetchCommentsSuccess,
@@ -28,7 +28,7 @@ const POSTS_INITIAL_STATE: PostsState = {
 export const postsReducer = (
 	state = POSTS_INITIAL_STATE,
 	action = {} as UnknownAction
-) => {
+): PostsState => {
 	if (likePostSuccess.match(action)) {
 		return { ...state, posts: action.payload };
 	}

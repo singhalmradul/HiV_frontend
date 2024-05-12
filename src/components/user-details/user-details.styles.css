@@ -1,0 +1,19 @@
+ .display-name {
+	font-size: 3.5em;
+	color: #333;
+}
+
+.avatar {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	object-fit: cover;
+	min-width: 200px;
+	min-height: 200px;
+	user-select: none;
+}
+
+.bio {
+	font-size: 2em;
+	color: #633;
+}

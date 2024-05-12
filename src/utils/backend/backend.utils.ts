@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { POST_TYPES, Post } from '../../store/posts/posts.types';
+import { POST_TYPE, Post } from '../../store/posts/posts.types';
 import { User } from '../../store/user/user.types';
 import { Comment } from '../../store/comments/comments.types';
 import { Like } from '../../store/likes/likes.types';
@@ -10,21 +10,22 @@ const url = (endpoint: string) =>
 
 const userUrl = url('users');
 const postUrl = (userId: string) => `${userUrl}/${userId}/posts`;
+const followUrl = (userId: string, followId: string) => `${userUrl}/${userId}/follow/${followId}`;
 const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
 const commentUrl = (postId: string) => `${url('posts')}/${postId}/comments`;
 
-export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
+export const fetchPosts = async (userId: string, postType: POST_TYPE) => {
 	if (!userId) return [];
 
 	let url;
 	switch (postType) {
-		case POST_TYPES.USER_POSTS:
+		case POST_TYPE.USER_POSTS:
 			url = postUrl(userId);
 			break;
-		case POST_TYPES.FEED_POSTS:
+		case POST_TYPE.FEED_POSTS:
 			url = `${postUrl(userId)}/feed`;
 			break;
-		case POST_TYPES.EXPLORE_POSTS:
+		case POST_TYPE.EXPLORE_POSTS:
 			url = `${postUrl(userId)}/explore`;
 			break;
 	}
@@ -33,8 +34,10 @@ export const fetchPosts = async (userId: string, postType: POST_TYPES) => {
 	return response.data;
 };
 
-export const fetchUser = async (id: string) => {
-	const response = await axios.get<User>(`${userUrl}/${id}`);
+export const fetchUser = async (id: string, userId: string) => {
+	const response = await axios.get<User>(`${userUrl}/${id}`, {
+		params: { userId },
+	});
 	return response.data;
 };
 
@@ -81,14 +84,18 @@ export const postComment = async (
 	postId: string,
 	text: string
 ) => {
-	const response = await axios.post<Comment>(commentUrl(postId), {
-		userId,
-		text,
-	},{
-		headers: {
-			'Content-Type': 'application/json',
+	const response = await axios.post<Comment>(
+		commentUrl(postId),
+		{
+			userId,
+			text,
+		},
+		{
+			headers: {
+				'Content-Type': 'application/json',
+			},
 		}
-});
+	);
 	return response.data;
 };
 
@@ -100,4 +107,12 @@ export const fetchComments = async (postId: string) => {
 export const fetchLikes = async (postId: string) => {
 	const response = await axios.get<Like[]>(`${likeUrl(postId)}`);
 	return response.data;
+};
+
+export const followUser = async (userId: string, followId: string) => {
+	await axios.post(followUrl(userId, followId));
+};
+
+export const unfollowUser = async (userId: string, followId: string) => {
+	await axios.delete(followUrl(userId, followId));
 };

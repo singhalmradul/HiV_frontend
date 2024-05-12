@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const DisplayNameCardContainer = styled.div`
+export const DisplayNameCardContainer = styled(Link)`
     display: flex;
     align-items: center;
 	font-size: x-large;

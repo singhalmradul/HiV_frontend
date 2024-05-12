@@ -11,7 +11,7 @@ type PostProps = { posts: PostType[]; };
 const Posts = ({ posts }: PostProps) => {
 
 	const isLoading = useSelector(selectPostsIsLoading);
-
+	console.log('posts', posts);
 	return isLoading ? <Spinner /> : (
 		<div className='posts'>
 			{posts.map((post) => (

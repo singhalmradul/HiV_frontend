@@ -3,19 +3,34 @@ import { createSelector } from 'reselect';
 import { RootState } from '../store';
 import { UserState } from './user.reducer';
 
-const selectUserReducer = (state: RootState): UserState => state.user;
+const selectUserSlice = (state: RootState): UserState => state.user;
 
 export const selectUser = createSelector(
-	[selectUserReducer],
+	[selectUserSlice],
 	(userSlice) => userSlice.user
 );
 
+export const selectCurrentUserId = createSelector(
+	[selectUserSlice],
+	(userSlice) => userSlice.currentUserId ?? ''
+);
+
 export const selectUserIsLoading = createSelector(
-	[selectUserReducer],
+	[selectUserSlice],
 	(userSlice) => userSlice.isLoading
 );
 
 export const selectUserId = createSelector(
 	[selectUser],
-	(user) => user?.id
+	(user) => user?.id ?? ''
+);
+
+export const selectIsUserFollowed = createSelector(
+	[selectUser],
+	(user) => user?.isFollowed ?? false
+);
+
+export const selectUserError = createSelector(
+	[selectUserSlice],
+	(userSlice) => userSlice.error
 );
