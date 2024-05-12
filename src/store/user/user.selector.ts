@@ -22,12 +22,17 @@ export const selectUserIsLoading = createSelector(
 
 export const selectCurrentUserId = createSelector(
 	[selectCurrentUser],
-	(user) => user?.id
+	(user) => user?.id ?? ''
+);
+
+export const selectUserId = createSelector(
+	[selectUser],
+	(user) => user?.id ?? ''
 );
 
 export const selectIsUserFollowed = createSelector(
 	[selectUser],
-	(user) => user?.isFollowed
+	(user) => user?.isFollowed?? false
 );
 
 export const selectUserError = createSelector(

@@ -7,6 +7,7 @@ import { selectCurrentUserId, selectIsUserFollowed } from '../../store/user/user
 import './user-profile.styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { followUserStart, unfollowUserStart } from '../../store/user/user.action';
 
 type ProfilesRouteParams = { userId: string; };
 const UserProfile = () => {
@@ -31,9 +32,10 @@ const UserProfile = () => {
     );
 
     const follow = () => {
-
+        dispatch(followUserStart());
     };
     const unfollow = () => {
+        dispatch(unfollowUserStart());
     };
 
     return (
@@ -41,8 +43,8 @@ const UserProfile = () => {
             <div className='buttons'>
                 {
                     isFollowed
-                        ? <Button onClick={follow}>follow</Button>
-                        : <Button onClick={unfollow}>unfollow</Button>
+                        ? <Button onClick={unfollow}>unfollow</Button>
+                        : <Button onClick={follow}>follow</Button>
                 }
             </div>
             <UserDetails userId={userId} />

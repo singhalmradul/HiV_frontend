@@ -14,10 +14,9 @@ import {
 import { POST_ACTION_TYPES, Post } from './posts.types';
 import { RootState } from '../store';
 import { setDisplayModal } from '../modal/modal.action';
+import { selectUserId } from '../user/user.selector';
 
 // MARK: ---------------------- SELECTORS ----------------------
-
-const selectUserId = (state: RootState) => state.user.user?.id ?? '';
 
 const selectUserDisplayName = (state: RootState) =>
 	state.user.user?.displayName ?? '';

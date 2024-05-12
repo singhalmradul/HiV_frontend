@@ -4,6 +4,8 @@ import {
 	fetchUserDetailsStart,
 	fetchCurrentUserDetailsSuccess,
 	fetchUserDetailsSuccess,
+	followUserSuccess,
+	unfollowUserSuccess,
 } from './user.action';
 import { User } from './user.types';
 
@@ -36,6 +38,12 @@ export const userReducer = (
 	}
 	if (fetchUserDetailsFailed.match(action)) {
 		return { ...state, error: action.payload, isLoading: false };
+	}
+	if (followUserSuccess.match(action)) {
+		return { ...state, user: action.payload };
+	}
+	if (unfollowUserSuccess.match(action)) {
+		return { ...state, user: action.payload };
 	}
 	return state;
 };

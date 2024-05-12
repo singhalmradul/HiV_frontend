@@ -10,6 +10,7 @@ const url = (endpoint: string) =>
 
 const userUrl = url('users');
 const postUrl = (userId: string) => `${userUrl}/${userId}/posts`;
+const followUrl = (userId: string, followId: string) => `${userUrl}/${userId}/follow/${followId}`;
 const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
 const commentUrl = (postId: string) => `${url('posts')}/${postId}/comments`;
 
@@ -106,4 +107,12 @@ export const fetchComments = async (postId: string) => {
 export const fetchLikes = async (postId: string) => {
 	const response = await axios.get<Like[]>(`${likeUrl(postId)}`);
 	return response.data;
+};
+
+export const followUser = async (userId: string, followId: string) => {
+	await axios.post(followUrl(userId, followId));
+};
+
+export const unfollowUser = async (userId: string, followId: string) => {
+	await axios.delete(followUrl(userId, followId));
 };
