@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../../components/button/button.component';
+import Button from '../../components/buttons/button.styles';
 import UserDetails from '../../components/user-details/user-details.component';
-import { selectCurrentUserId, selectIsUserFollowed } from '../../store/user/user.selector';
+import { selectCurrentUserId, selectIsUserFollowed, selectUser, selectUserError, selectUserIsLoading } from '../../store/user/user.selector';
 
 import './user-profile.styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { followUserStart, unfollowUserStart } from '../../store/user/user.action';
+import { fetchUserDetailsStart, followUserStart, resetUserState, unfollowUserStart } from '../../store/user/user.action';
+import Buttons from '../../components/buttons/buttons.styles';
+import Spinner from '../../components/spinner/spinner.component';
 
 type ProfilesRouteParams = { userId: string; };
 const UserProfile = () => {
@@ -20,15 +22,24 @@ const UserProfile = () => {
     const dispatch = useDispatch();
     const isFollowed = useSelector(selectIsUserFollowed);
     const cuurentUserId = useSelector(selectCurrentUserId);
+    const user = useSelector(selectUser);
+    const userIsLoading = useSelector(selectUserIsLoading);
+    const userError = useSelector(selectUserError);
 
     useEffect(
         () => {
+            if (userError) {
+                dispatch(resetUserState());
+                navigate('/');
+            } else if (!userIsLoading && user?.id !== userId) {
+                dispatch(fetchUserDetailsStart(userId));
+            }
             if (cuurentUserId === userId) {
                 navigate('/profile');
             }
         }
         // eslint-disable-next-line
-        , [userId]
+        , [userId, userIsLoading, user]
     );
 
     const follow = () => {
@@ -38,16 +49,20 @@ const UserProfile = () => {
         dispatch(unfollowUserStart());
     };
 
+    if (userIsLoading || !user) {
+        return <Spinner />;
+    };
+
     return (
         <div className='profile-container'>
-            <div className='buttons'>
+            <Buttons>
                 {
                     isFollowed
                         ? <Button onClick={unfollow}>unfollow</Button>
                         : <Button onClick={follow}>follow</Button>
                 }
-            </div>
-            <UserDetails userId={userId} />
+            </Buttons>
+            <UserDetails user={user} />
         </div>
     );
 

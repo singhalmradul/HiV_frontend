@@ -5,6 +5,7 @@ import Home from './routes/home/home.component';
 import Explore from './routes/explore/explore.component';
 import Callback from './routes/callback/callback.component';
 import Profiles from './routes/profiles/profiles.component';
+import EditProfile from './routes/edit-profile/edit-profile.component';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
 				<Route path='explore/' element={<Explore />} />
 				<Route path="callback/" element={<Callback />} />
 				<Route path='profile/*' element={<Profiles />} />
+				<Route path='edit-profile/' element={<EditProfile />} />
 			</Route>
 			<Route path='*' element={<Navigate to='/' replace />} />
 		</Routes>

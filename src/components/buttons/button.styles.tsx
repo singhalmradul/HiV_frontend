@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-export const ButtonContainer = styled.button`
+
+const Button = styled.button`
   background-color: #c2fbd7;
   border-radius: 100px;
   color: green;
@@ -22,3 +23,5 @@ export const ButtonContainer = styled.button`
   margin: 20px;
 
 `;
+
+export default Button;

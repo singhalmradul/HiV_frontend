@@ -13,10 +13,10 @@ const DisplayNameCard = ({ user: { id, displayName, avatar } }: DisplayNameCardP
     const handleOnClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.stopPropagation();
         dispatch(fetchUserDetailsStart(id));
-    }
+    };
     return (
         <DisplayNameCardContainer to={`/profile/${id}`} onClick={handleOnClick}>
-            <Avatar src={avatar} alt={displayName} />
+            <Avatar src={avatar} />
             <p>{displayName}</p>
         </DisplayNameCardContainer>
     );

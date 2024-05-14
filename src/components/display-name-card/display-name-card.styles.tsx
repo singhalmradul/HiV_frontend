@@ -13,7 +13,7 @@ export const DisplayNameCardContainer = styled(Link)`
 	}
 `;
 
-export const Avatar = styled.img`
+export const Avatar = styled.embed`
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;

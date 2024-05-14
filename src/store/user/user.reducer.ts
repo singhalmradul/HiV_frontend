@@ -6,6 +6,7 @@ import {
 	fetchUserDetailsSuccess,
 	followUserSuccess,
 	unfollowUserSuccess,
+	resetUserState,
 } from './user.action';
 import { User } from './user.types';
 
@@ -28,7 +29,7 @@ export const userReducer = (
 	action = {} as UnknownAction
 ): UserState => {
 	if (fetchUserDetailsStart.match(action)) {
-		return { ...state, isLoading: true, error: null};
+		return { ...state, isLoading: true };
 	}
 	if (setCurrentUserId.match(action)) {
 		return { ...state, currentUserId: action.payload, isLoading: false };
@@ -44,6 +45,9 @@ export const userReducer = (
 	}
 	if (unfollowUserSuccess.match(action)) {
 		return { ...state, user: action.payload };
+	}
+	if (resetUserState.match(action)) {
+		return { ...USER_INITIAL_STATE, currentUserId: state.currentUserId };
 	}
 	return state;
 };

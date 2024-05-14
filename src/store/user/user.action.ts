@@ -6,6 +6,8 @@ import {
 } from '../../utils/reducer/reducer.utils';
 import { USER_ACTION_TYPES, User } from './user.types';
 
+export type Reset = Action<USER_ACTION_TYPES.RESET>;
+
 export type FetchUserDetialsStart = ActionWithPayload<
 	USER_ACTION_TYPES.FETCH_USER_DETIALS_START,
 	string
@@ -49,6 +51,11 @@ export type UnfollowUserFailed = ActionWithPayload<
 	USER_ACTION_TYPES.UNFOLLOW_USER_FAILED,
 	Error
 >;
+
+export const resetUserState = withMatcher(
+	(): Reset =>
+		createAction(USER_ACTION_TYPES.RESET)
+);
 
 export const fetchUserDetailsStart = withMatcher(
 	(id: string): FetchUserDetialsStart =>

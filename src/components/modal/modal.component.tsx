@@ -3,7 +3,7 @@ import { CloseButton, Embed, ModalBody, ModalContainer, ModalContent, ModalFoote
 import { useDispatch, useSelector } from 'react-redux';
 import { setDisplayModal } from '../../store/modal/modal.action';
 import { selectDisplayModal } from '../../store/modal/modal.selector';
-import Button from '../button/button.component';
+import Button from '../buttons/button.styles';
 import { FileInput } from '../file-input/file-input.component';
 import { createPostStart } from '../../store/posts/posts.action';
 
