@@ -7,6 +7,9 @@ import {
 	followUserSuccess,
 	unfollowUserSuccess,
 	resetUserState,
+	updateProfileSuccess,
+	updateProfileFailed,
+	changeAvatarSuccess,
 } from './user.action';
 import { User } from './user.types';
 
@@ -45,6 +48,18 @@ export const userReducer = (
 	}
 	if (unfollowUserSuccess.match(action)) {
 		return { ...state, user: action.payload };
+	}
+	if (updateProfileSuccess.match(action)) {
+		return { ...state, user: action.payload };
+	}
+	if (updateProfileFailed.match(action)) {
+		return { ...state, error: action.payload };
+	}
+	if (changeAvatarSuccess.match(action)) {
+		return {
+			...state,
+			user: { ...(state.user as User), avatar: action.payload },
+		};
 	}
 	if (resetUserState.match(action)) {
 		return { ...USER_INITIAL_STATE, currentUserId: state.currentUserId };

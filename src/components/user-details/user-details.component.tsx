@@ -7,6 +7,7 @@ import { POST_TYPE } from '../../store/posts/posts.types';
 
 import './user-details.styles.css';
 import { User } from '../../store/user/user.types';
+import AvatarLarge from '../avatar-large/avatar-large.component';
 
 type UserDetailsProps = { user: User; };
 const UserDetails = ({ user: { displayName, avatar, bio, username } }: UserDetailsProps) => {
@@ -23,7 +24,7 @@ const UserDetails = ({ user: { displayName, avatar, bio, username } }: UserDetai
     return (
         <>
             <h2 className='display-name'>{displayName}</h2>
-            {avatar && <img className='avatar' src={avatar} alt={username} />}
+            <AvatarLarge src={avatar} />
             <p className='bio'>{bio}</p>
             <Posts posts={userPosts} />
         </>

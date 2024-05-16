@@ -50,7 +50,37 @@ export type UnfollowUserSuccess = ActionWithPayload<
 export type UnfollowUserFailed = ActionWithPayload<
 	USER_ACTION_TYPES.UNFOLLOW_USER_FAILED,
 	Error
->;
+	>;
+
+export type UpdateProfileStart = ActionWithPayload<
+	USER_ACTION_TYPES.UPDATE_PROFILE_START,
+	User
+	>;
+
+export type UpdateProfileSuccess = ActionWithPayload<
+	USER_ACTION_TYPES.UPDATE_PROFILE_SUCCESS,
+	User
+	>;
+
+export type UpdateProfileFailed = ActionWithPayload<
+	USER_ACTION_TYPES.UPDATE_PROFILE_FAILED,
+	Error
+	>;
+
+export type ChangeAvatarStart = ActionWithPayload<
+	USER_ACTION_TYPES.CHANGE_AVATAR_START,
+	File
+	>;
+
+export type ChangeAvatarSuccess = ActionWithPayload<
+	USER_ACTION_TYPES.CHANGE_AVATAR_SUCCESS,
+	string
+	>;
+
+export type ChangeAvatarFailed = ActionWithPayload<
+	USER_ACTION_TYPES.CHANGE_AVATAR_FAILED,
+	Error
+	>;
 
 export const resetUserState = withMatcher(
 	(): Reset =>
@@ -105,4 +135,34 @@ export const unfollowUserSuccess = withMatcher(
 export const unfollowUserFailed = withMatcher(
 	(error: Error): UnfollowUserFailed =>
 		createAction(USER_ACTION_TYPES.UNFOLLOW_USER_FAILED, error)
+);
+
+export const updateProfileStart = withMatcher(
+	(user: User): UpdateProfileStart =>
+		createAction(USER_ACTION_TYPES.UPDATE_PROFILE_START, user)
+);
+
+export const updateProfileSuccess = withMatcher(
+	(user: User): UpdateProfileSuccess =>
+		createAction(USER_ACTION_TYPES.UPDATE_PROFILE_SUCCESS, user)
+);
+
+export const updateProfileFailed = withMatcher(
+	(error: Error): UpdateProfileFailed =>
+		createAction(USER_ACTION_TYPES.UPDATE_PROFILE_FAILED, error)
+);
+
+export const changeAvatarStart = withMatcher(
+	(file: File): ChangeAvatarStart =>
+		createAction(USER_ACTION_TYPES.CHANGE_AVATAR_START, file)
+);
+
+export const changeAvatarSuccess = withMatcher(
+	(avatar: string): ChangeAvatarSuccess =>
+		createAction(USER_ACTION_TYPES.CHANGE_AVATAR_SUCCESS, avatar)
+);
+
+export const changeAvatarFailed = withMatcher(
+	(error: Error): ChangeAvatarFailed =>
+		createAction(USER_ACTION_TYPES.CHANGE_AVATAR_FAILED, error)
 );

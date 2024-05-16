@@ -9,8 +9,8 @@ import EditProfile from './routes/edit-profile/edit-profile.component';
 
 
 const App = () => {
-	return (
 
+	return (
 		<Routes>
 			<Route path='/' element={<NavigationBar />}>
 				<Route index element={<Home />} />

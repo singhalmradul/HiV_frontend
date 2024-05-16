@@ -3,16 +3,6 @@
 	color: #333;
 }
 
-.avatar {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	object-fit: cover;
-	min-width: 200px;
-	min-height: 200px;
-	user-select: none;
-	box-shadow:  4px 2px 10px rgba(0, 0, 0, 0.5);
-}
 
 .bio {
 	font-size: 2em;

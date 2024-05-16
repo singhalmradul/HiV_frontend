@@ -13,12 +13,12 @@ export const DisplayNameCardContainer = styled(Link)`
 	}
 `;
 
-export const Avatar = styled.embed`
+export const Avatar = styled.img`
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
 	margin-right: 10px;
 	margin-top: 20px;
-	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 	user-select: none;
 `;

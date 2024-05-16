@@ -14,6 +14,7 @@ const Modal = () => {
     const [preview, setPreview] = useState<string | null>(null);
     const [text, setText] = useState<string>('');
     const [file, setFile] = useState<File | null>(null);
+
     const handlePreview = (event: ChangeEvent<HTMLInputElement>) => {
         const [file] = event?.target.files ?? [];
         setFile(file);
@@ -41,6 +42,7 @@ const Modal = () => {
         return () => {
             window.removeEventListener('click', handleClick);
         };
+        // eslint-disable-next-line
     }, []);
 
     const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
@@ -66,7 +68,7 @@ const Modal = () => {
                 </ModalHeader>
                 <ModalBody>
                     <TextArea placeholder="what's on your mind?" onChange={handleTextChange} value={text} />
-                    <FileInput onChange={handlePreview} />
+                    <FileInput onChange={handlePreview}  label='add media'/>
                     {preview && <Embed src={preview} />}
                 </ModalBody>
                 <ModalFooter>

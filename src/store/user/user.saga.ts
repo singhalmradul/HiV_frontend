@@ -7,17 +7,23 @@ import {
 	followUserFailed,
 	unfollowUserSuccess,
 	unfollowUserFailed,
+	UpdateProfileStart,
+	updateProfileSuccess,
+	updateProfileFailed,
+	changeAvatarSuccess,
+	changeAvatarFailed,
 } from './user.action';
 import { USER_ACTION_TYPES } from './user.types';
-import { fetchUser, followUser, unfollowUser } from '../../utils/backend/backend.utils';
 import {
-	selectCurrentUserId,
-	selectUser,
-} from './user.selector';
+	fetchUser,
+	followUser,
+	unfollowUser,
+	updateAvatar,
+	updateUser,
+} from '../../utils/backend/backend.utils';
+import { selectCurrentUserId, selectUser } from './user.selector';
 
-export function* fetchUserAsync({
-	payload: id,
-}: FetchUserDetialsStart) {
+export function* fetchUserAsync({ payload: id }: FetchUserDetialsStart) {
 	try {
 		const currentUserId = yield* select(selectCurrentUserId);
 		const user = yield* call(fetchUser, id, currentUserId);
@@ -29,8 +35,8 @@ export function* fetchUserAsync({
 
 export function* followUserAsync() {
 	try {
-		const user = (yield* select(selectUser));
-		if (!user) throw new Error("user is null");
+		const user = yield* select(selectUser);
+		if (!user) throw new Error('user is null');
 
 		const currentUserId = yield* select(selectCurrentUserId);
 		yield* call(followUser, currentUserId, user.id);
@@ -43,15 +49,35 @@ export function* followUserAsync() {
 
 export function* unfollowUserAsync() {
 	try {
-		const user = yield * select(selectUser);
+		const user = yield* select(selectUser);
 		if (!user) throw new Error('user is null');
 
 		const currentUserId = yield* select(selectCurrentUserId);
-		yield * call(unfollowUser, currentUserId, user.id);
+		yield* call(unfollowUser, currentUserId, user.id);
 
 		yield* put(unfollowUserSuccess({ ...user, isFollowed: false }));
 	} catch (error) {
 		yield* put(unfollowUserFailed(error as Error));
+	}
+}
+
+export function* updateProfileAsync({ payload: user }: UpdateProfileStart) {
+	try {
+		const currentUserId = yield* select(selectCurrentUserId);
+		const updatedUser = yield* call(updateUser, currentUserId, user);
+		yield* put(updateProfileSuccess(updatedUser));
+	} catch (error) {
+		yield* put(updateProfileFailed(error as Error));
+	}
+}
+
+export function* changeAvatar({ payload: file }: any) {
+	try {
+		const currentUserId = yield* select(selectCurrentUserId);
+		const url = yield* call(updateAvatar, currentUserId, { avatar: file });
+		yield* put(changeAvatarSuccess(url));
+	} catch (error) {
+		yield* put(changeAvatarFailed(error as Error));
 	}
 }
 
@@ -67,6 +93,20 @@ export function* onUnfollowUserStart() {
 	yield* takeLatest(USER_ACTION_TYPES.UNFOLLOW_USER_START, unfollowUserAsync);
 }
 
+export function* onUpdateProfileStart() {
+	yield* takeLatest(USER_ACTION_TYPES.UPDATE_PROFILE_START, updateProfileAsync);
+}
+
+export function* onChangeAvatarStart() {
+	yield* takeLatest(USER_ACTION_TYPES.CHANGE_AVATAR_START, changeAvatar);
+}
+
 export function* userSaga() {
-	yield* all([call(onFetchUserDetailsStart), call(onFollowUserStart), call(onUnfollowUserStart)]);
+	yield* all([
+		call(onFetchUserDetailsStart),
+		call(onFollowUserStart),
+		call(onUnfollowUserStart),
+		call(onUpdateProfileStart),
+		call(onChangeAvatarStart),
+	]);
 }

@@ -1,6 +1,6 @@
-# HiV_frontend
+# high-five_frontend
 
 frontend for project high-five
 
 ## TODO:
-- create edit profile
+- check for username availability

@@ -59,12 +59,12 @@ export type TextWithFile = {
 
 export const createPost = async (
 	userId: string,
-	textWithFile: TextWithFile
+	{ text, file }: TextWithFile
 ) => {
 	const formData = new FormData();
 
-	if (textWithFile.text?.length) formData.append('text', textWithFile.text);
-	if (textWithFile.file) formData.append('embed', textWithFile.file);
+	if (text?.length) formData.append('text', text);
+	if (file) formData.append('embed', file);
 
 	const response = await axios.post<Post>(postUrl(userId), formData, {
 		headers: {
@@ -116,3 +116,20 @@ export const followUser = async (userId: string, followId: string) => {
 export const unfollowUser = async (userId: string, followId: string) => {
 	await axios.delete(followUrl(userId, followId));
 };
+
+export const updateUser = async (userId: string, user: User) => {
+	const response = await axios.put<User>(`${userUrl}/${userId}`, user);
+	return response.data;
+};
+
+export const updateAvatar = async (userId: string, { avatar }: { avatar: File; }) => {
+	const formData = new FormData();
+	formData.append('avatar', avatar);
+
+	const response = await axios.put<string>(`${userUrl}/${userId}/avatar`, formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		},
+	});
+	return response.data;
+}

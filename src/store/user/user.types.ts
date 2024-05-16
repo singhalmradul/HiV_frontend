@@ -9,6 +9,12 @@ export enum USER_ACTION_TYPES {
     UNFOLLOW_USER_START = 'user/UNFOLLOW_USER_START',
     UNFOLLOW_USER_SUCCESS = 'user/UNFOLLOW_USER_SUCCESS',
     UNFOLLOW_USER_FAILED = 'user/UNFOLLOW_USER_FAILED',
+    UPDATE_PROFILE_START = 'user/UPDATE_PROFILE_START',
+    UPDATE_PROFILE_SUCCESS = 'user/UPDATE_PROFILE_SUCCESS',
+    UPDATE_PROFILE_FAILED = 'user/UPDATE_PROFILE_FAILED',
+    CHANGE_AVATAR_START = 'user/CHANGE_AVATAR_START',
+    CHANGE_AVATAR_SUCCESS = 'user/CHANGE_AVATAR_SUCCESS',
+    CHANGE_AVATAR_FAILED = 'user/CHANGE_AVATAR_FAILED',
     RESET = 'user/RESET',
 }
 
@@ -16,7 +22,8 @@ export type User = {
 
     id: string;
     displayName: string;
-	username: string;
+    username: string;
+    email: string;
     avatar: string;
     bio: string;
     isFollowed: boolean;

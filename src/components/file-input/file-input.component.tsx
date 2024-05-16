@@ -1,18 +1,22 @@
 import { InputHTMLAttributes } from 'react';
 import { FileInputContainer, Input, Label } from './file-input.styles';
 
-type FileInputProps = InputHTMLAttributes<HTMLInputElement>
-export const FileInput = (props:FileInputProps) => {
+
+type FileInputProps = InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
+    accept?: string;
+};
+export const FileInput = ({ label, accept, ...props }: FileInputProps) => {
 
     return (
         <FileInputContainer>
-            <Label htmlFor='media'>add media</Label>
+            <Label htmlFor='media'>{label}</Label>
             <Input
                 id='media'
                 type='file'
-                accept='image/*, video/*, audio/*'
+                accept={accept ?? 'image/*, video/*, audio/*'}
                 multiple={false}
-                placeholder='add media'
+                placeholder={label}
                 {...props}
             />
         </FileInputContainer>

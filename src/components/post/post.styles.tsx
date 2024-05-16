@@ -2,14 +2,13 @@ import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 export const PostContainer = styled.div`
-	border: 1px solid #ddd;
 	border-radius: 10px;
 	padding: 20px;
 	margin-bottom: 20px;
 	backdrop-filter: blur(10px);
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
 	&:hover {
-		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
 	}
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -20,7 +19,7 @@ export const Embed = styled.embed`
 	aspect-ratio: 1/1;
 	margin-top: 20px;
 	border-radius: 1cap;
-	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 	user-select: none;
 `;
 
@@ -46,20 +45,19 @@ export const Button = styled.div<ButtonProps>`
 	display: flex;
 	align-items: center;
 	gap: 30px;
-	border: 1px solid #ddd;
 	border-radius: 10px;
 	padding: 20px;
 	font-size: x-large;
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 	&:hover {
-		box-shadow: inset 3px 2px 3px rgba(0, 0, 0, 0.3);
+		box-shadow: inset 3px 2px 5px rgba(0, 0, 0, 0.3);
 	}
 	user-select: none;
 	svg {
 		height: 50px;
 		cursor: pointer;
 		color: #007bff;
-		filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+		filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
 	}
 	svg:hover {
 		color: #0056b3;
