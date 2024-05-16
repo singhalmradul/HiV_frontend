@@ -5,7 +5,7 @@ type ModalContainerProps = {
   display: boolean;
 };
 export const ModalContainer = styled.form<ModalContainerProps>`
-  display: ${(props: ModalContainerProps) => (props.display ? 'block' : 'none')}; /* Hidden by default */
+  display: ${({ display }: ModalContainerProps) => (display ? 'block' : 'none')}; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;

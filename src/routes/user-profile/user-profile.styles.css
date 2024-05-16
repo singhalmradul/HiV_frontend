@@ -7,9 +7,3 @@
 	padding: 20px;
 	box-sizing: border-box;
 }
-
-.buttons {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-}

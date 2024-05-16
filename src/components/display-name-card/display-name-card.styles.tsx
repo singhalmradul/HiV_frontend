@@ -19,6 +19,6 @@ export const Avatar = styled.img`
 	border-radius: 50%;
 	margin-right: 10px;
 	margin-top: 20px;
-	filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 	user-select: none;
 `;
