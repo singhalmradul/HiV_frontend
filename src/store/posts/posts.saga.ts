@@ -9,18 +9,9 @@ import {
 	fetchPostsSuccess,
 } from './posts.action';
 import { POST_ACTION_TYPES, POST_TYPE, Post } from './posts.types';
-import { RootState } from '../store';
 import { setDisplayModal } from '../modal/modal.action';
-import { selectCurrentUserId, selectUserId } from '../user/user.selector';
-
-// MARK: ---------------------- SELECTORS ----------------------
-
-const selectUserDisplayName = (state: RootState) =>
-	state.user.user?.displayName ?? '';
-
-const selectUserAvatar = (state: RootState) => state.user.user?.avatar ?? '';
-
-const selectPosts = (state: RootState) => state.posts.posts;
+import { selectCurrentUser, selectCurrentUserId, selectUserId } from '../user/user.selector';
+import { selectPosts } from './posts.selector';
 
 // MARK: ---------------------- UTILS ----------------------
 
@@ -32,7 +23,7 @@ export const updatePosts = (posts: Post[], post: Post) =>
 export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 	try {
 		const userId = yield* select(
-			postType === POST_TYPE.FEED_POSTS ? selectCurrentUserId : selectUserId
+			postType === POST_TYPE.USER_POSTS ? selectUserId : selectCurrentUserId
 		);
 		const posts = yield* call(fetchPosts, userId, postType);
 		yield* put(fetchPostsSuccess(posts));
@@ -43,16 +34,16 @@ export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 
 export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 	try {
-		const userId = yield* select(selectUserId);
-		const post = yield* call(createPost, userId, textWithFile);
+		const user = yield* select(selectCurrentUser);
+		if (!user) throw new Error('user is null');
+		const { id, displayName, avatar } = user;
+		const post = yield* call(createPost, id, textWithFile);
 
 		const posts = yield* select(selectPosts);
-		const userDisplayName = yield* select(selectUserDisplayName);
-		const userAvatar = yield* select(selectUserAvatar);
 		post.user = {
-			id: userId,
-			displayName: userDisplayName,
-			avatar: userAvatar,
+			id,
+			displayName,
+			avatar
 		};
 		post.likesCount = 0;
 		post.commentsCount = 0;

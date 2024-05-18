@@ -2,7 +2,6 @@ import { UnknownAction } from 'redux';
 import {
 	fetchUserDetailsFailed,
 	fetchUserDetailsStart,
-	setCurrentUserId,
 	fetchUserDetailsSuccess,
 	followUserSuccess,
 	unfollowUserSuccess,
@@ -10,18 +9,19 @@ import {
 	updateProfileSuccess,
 	updateProfileFailed,
 	changeAvatarSuccess,
+	fetchCurrentUserDetailsSuccess,
 } from './user.action';
 import { User } from './user.types';
 
 export type UserState = {
-	readonly currentUserId: string | null;
+	readonly currentUser: User | null;
 	readonly user: User | null;
 	readonly isLoading: boolean;
 	readonly error: Error | null;
 };
 
 const USER_INITIAL_STATE: UserState = {
-	currentUserId: null,
+	currentUser: null,
 	user: null,
 	isLoading: false,
 	error: null,
@@ -34,8 +34,8 @@ export const userReducer = (
 	if (fetchUserDetailsStart.match(action)) {
 		return { ...state, isLoading: true };
 	}
-	if (setCurrentUserId.match(action)) {
-		return { ...state, currentUserId: action.payload, isLoading: false };
+	if (fetchCurrentUserDetailsSuccess.match(action)) {
+		return { ...state, currentUser: action.payload };
 	}
 	if (fetchUserDetailsSuccess.match(action)) {
 		return { ...state, user: action.payload, isLoading: false };
@@ -62,7 +62,7 @@ export const userReducer = (
 		};
 	}
 	if (resetUserState.match(action)) {
-		return { ...USER_INITIAL_STATE, currentUserId: state.currentUserId };
+		return { ...USER_INITIAL_STATE, currentUser: state.currentUser };
 	}
 	return state;
 };

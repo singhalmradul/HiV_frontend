@@ -12,6 +12,7 @@ import {
 	updateProfileFailed,
 	changeAvatarSuccess,
 	changeAvatarFailed,
+	fetchCurrentUserDetailsSuccess,
 } from './user.action';
 import { USER_ACTION_TYPES } from './user.types';
 import {
@@ -23,10 +24,13 @@ import {
 } from '../../utils/backend/backend.utils';
 import { selectCurrentUserId, selectUser } from './user.selector';
 
-export function* fetchUserAsync({ payload: id }: FetchUserDetialsStart) {
+export function* fetchUserAsync({ payload: { id, isCurrentUser } }: FetchUserDetialsStart) {
 	try {
 		const currentUserId = yield* select(selectCurrentUserId);
 		const user = yield* call(fetchUser, id, currentUserId);
+		if (isCurrentUser) {
+			yield* put(fetchCurrentUserDetailsSuccess(user));
+		}
 		yield* put(fetchUserDetailsSuccess(user));
 	} catch (error) {
 		yield* put(fetchUserDetailsFailed(error as Error));
