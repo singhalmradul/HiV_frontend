@@ -9,10 +9,14 @@ export const selectUser = createSelector(
 	[selectUserSlice],
 	(userSlice) => userSlice.user
 );
+export const selectCurrentUser = createSelector(
+	[selectUserSlice],
+	(userSlice) => userSlice.currentUser
+);
 
 export const selectCurrentUserId = createSelector(
-	[selectUserSlice],
-	(userSlice) => userSlice.currentUserId ?? ''
+	[selectCurrentUser],
+	(user) => user?.id ?? ''
 );
 
 export const selectUserIsLoading = createSelector(

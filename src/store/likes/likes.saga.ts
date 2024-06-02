@@ -16,14 +16,9 @@ import {
 	unlikePostSuccess,
 } from './likes.action';
 import { LIKE_ACTION_TYPES, Like } from './likes.types';
-import { RootState } from '../store';
 import { Post } from '../posts/posts.types';
-
-// MARK: ---------------------- SELECTORS ----------------------
-
-const selectUser = (state: RootState) => state.user.user;
-
-const selectPosts = (state: RootState) => state.posts.posts;
+import { selectCurrentUser } from '../user/user.selector';
+import { selectPosts } from '../posts/posts.selector';
 
 // MARK: ---------------------- UTILS ----------------------
 
@@ -33,7 +28,7 @@ export const updatePosts = (posts: Post[], post: Post) =>
 // MARK: ---------------------- SAGAS ----------------------
 export function* likePostAsync({ payload: postId }: LikePostStart) {
 	try {
-		const user = yield* select(selectUser);
+		const user = yield* select(selectCurrentUser);
 
 		if (!user) return;
 
@@ -65,7 +60,7 @@ export function* likePostAsync({ payload: postId }: LikePostStart) {
 
 export function* unlikePostAsync({ payload: postId }: LikePostStart) {
 	try {
-		const user = yield* select(selectUser);
+		const user = yield* select(selectCurrentUser);
 
 		if (!user) return;
 

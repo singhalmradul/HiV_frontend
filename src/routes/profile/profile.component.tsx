@@ -7,7 +7,7 @@ import Button from '../../components/buttons/button.styles';
 import UserDetails from '../../components/user-details/user-details.component';
 
 import './profile.styles.css';
-import { selectCurrentUserId, selectUser, selectUserIsLoading } from '../../store/user/user.selector';
+import { selectCurrentUser, selectCurrentUserId, selectUser, selectUserIsLoading } from '../../store/user/user.selector';
 import { persistor } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 import Buttons from '../../components/buttons/buttons.styles';
@@ -37,13 +37,13 @@ const Profile = () => {
     }
 
     const userId = useSelector(selectCurrentUserId) as string;
-    const user = useSelector(selectUser);
+    const user = useSelector(selectCurrentUser);
     const userIsLoading = useSelector(selectUserIsLoading);
 
     useEffect(
         () => {
             if (!userIsLoading && user?.id !== userId) {
-                dispatch(fetchUserDetailsStart(userId));
+                dispatch(fetchUserDetailsStart(userId, true));
             }
         }
         // eslint-disable-next-line

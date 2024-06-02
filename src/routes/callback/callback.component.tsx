@@ -4,7 +4,7 @@ import Spinner from '../../components/spinner/spinner.component';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from 'oidc-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUserId } from '../../store/user/user.action';
+import { fetchUserDetailsStart } from '../../store/user/user.action';
 import { selectCurrentUserId } from '../../store/user/user.selector';
 
 const Callback = () => {
@@ -17,7 +17,7 @@ const Callback = () => {
     useEffect(() => {
         if (!isLoading && userData) {
             if (userData.profile.sub !== userId) {
-                dispatch(setCurrentUserId(userData.profile.sub));
+                dispatch(fetchUserDetailsStart(userData.profile.sub, true));
             }
             navigate('/');
         }

@@ -10,14 +10,9 @@ import {
 	postCommentSuccess,
 } from './comments.action';
 import { COMMENT_ACTION_TYPES } from './comments.types';
-import { RootState } from '../store';
 import { Post } from '../posts/posts.types';
-
-// MARK: ---------------------- SELECTORS ----------------------
-
-const selectUser = (state: RootState) => state.user.user;
-
-const selectPosts = (state: RootState) => state.posts.posts;
+import { selectCurrentUser } from '../user/user.selector';
+import { selectPosts } from '../posts/posts.selector';
 
 // MARK: ---------------------- UTILS ----------------------
 
@@ -29,7 +24,7 @@ export function* postCommentAsync({
 	payload: { postId, text },
 }: PostCommentStart) {
 	try {
-		const user = yield* select(selectUser);
+		const user = yield* select(selectCurrentUser);
 
 		if (!user) return;
 

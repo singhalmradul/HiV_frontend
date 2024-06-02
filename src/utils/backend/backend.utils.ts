@@ -35,8 +35,8 @@ export const fetchPosts = async (userId: string, postType: POST_TYPE) => {
 };
 
 export const fetchUser = async (id: string, userId: string) => {
-	const response = await axios.get<User>(`${userUrl}/${id}`, {
-		params: { userId },
+	const response = await axios.get<User>(`${userUrl}/${id}`,  {
+		params: userId && { userId },
 	});
 	return response.data;
 };

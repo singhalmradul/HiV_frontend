@@ -8,9 +8,13 @@ import { USER_ACTION_TYPES, User } from './user.types';
 
 export type Reset = Action<USER_ACTION_TYPES.RESET>;
 
+type FetchUserDetialsStartParams = {
+	id: string;
+	isCurrentUser: boolean;
+};
 export type FetchUserDetialsStart = ActionWithPayload<
 	USER_ACTION_TYPES.FETCH_USER_DETIALS_START,
-	string
+	FetchUserDetialsStartParams
 >;
 
 export type FetchUserDetailsSuccess = ActionWithPayload<
@@ -18,11 +22,10 @@ export type FetchUserDetailsSuccess = ActionWithPayload<
 	User
 >;
 
-export type SetCurrentUserId = ActionWithPayload<
-	USER_ACTION_TYPES.SET_CURRENT_USER_ID,
-	string
+export type FetchCurrentUserDetailsSuccess = ActionWithPayload<
+	USER_ACTION_TYPES.FETCH_CURRENT_USER_DETAILS_SUCCESS,
+	User
 >;
-
 export type FetchUserDetailsFailed = ActionWithPayload<
 	USER_ACTION_TYPES.FETCH_USER_DETAILS_FAILED,
 	Error
@@ -50,51 +53,53 @@ export type UnfollowUserSuccess = ActionWithPayload<
 export type UnfollowUserFailed = ActionWithPayload<
 	USER_ACTION_TYPES.UNFOLLOW_USER_FAILED,
 	Error
-	>;
+>;
 
 export type UpdateProfileStart = ActionWithPayload<
 	USER_ACTION_TYPES.UPDATE_PROFILE_START,
 	User
-	>;
+>;
 
 export type UpdateProfileSuccess = ActionWithPayload<
 	USER_ACTION_TYPES.UPDATE_PROFILE_SUCCESS,
 	User
-	>;
+>;
 
 export type UpdateProfileFailed = ActionWithPayload<
 	USER_ACTION_TYPES.UPDATE_PROFILE_FAILED,
 	Error
-	>;
+>;
 
 export type ChangeAvatarStart = ActionWithPayload<
 	USER_ACTION_TYPES.CHANGE_AVATAR_START,
 	File
-	>;
+>;
 
 export type ChangeAvatarSuccess = ActionWithPayload<
 	USER_ACTION_TYPES.CHANGE_AVATAR_SUCCESS,
 	string
-	>;
+>;
 
 export type ChangeAvatarFailed = ActionWithPayload<
 	USER_ACTION_TYPES.CHANGE_AVATAR_FAILED,
 	Error
-	>;
+>;
 
 export const resetUserState = withMatcher(
-	(): Reset =>
-		createAction(USER_ACTION_TYPES.RESET)
+	(): Reset => createAction(USER_ACTION_TYPES.RESET)
 );
 
 export const fetchUserDetailsStart = withMatcher(
-	(id: string): FetchUserDetialsStart =>
-		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, id)
+	(id: string, isCurrentUser = false): FetchUserDetialsStart =>
+		createAction(USER_ACTION_TYPES.FETCH_USER_DETIALS_START, {
+			id,
+			isCurrentUser,
+		})
 );
 
-export const setCurrentUserId = withMatcher(
-	(id: string): SetCurrentUserId =>
-		createAction(USER_ACTION_TYPES.SET_CURRENT_USER_ID, id)
+export const fetchCurrentUserDetailsSuccess = withMatcher(
+	(user: User): FetchCurrentUserDetailsSuccess =>
+		createAction(USER_ACTION_TYPES.FETCH_CURRENT_USER_DETAILS_SUCCESS, user)
 );
 
 export const fetchUserDetailsSuccess = withMatcher(
@@ -108,8 +113,7 @@ export const fetchUserDetailsFailed = withMatcher(
 );
 
 export const followUserStart = withMatcher(
-	(): FollowUserStart =>
-		createAction(USER_ACTION_TYPES.FOLLOW_USER_START)
+	(): FollowUserStart => createAction(USER_ACTION_TYPES.FOLLOW_USER_START)
 );
 
 export const followUserSuccess = withMatcher(
@@ -123,8 +127,7 @@ export const followUserFailed = withMatcher(
 );
 
 export const unfollowUserStart = withMatcher(
-	(): UnfollowUserStart =>
-		createAction(USER_ACTION_TYPES.UNFOLLOW_USER_START)
+	(): UnfollowUserStart => createAction(USER_ACTION_TYPES.UNFOLLOW_USER_START)
 );
 
 export const unfollowUserSuccess = withMatcher(
