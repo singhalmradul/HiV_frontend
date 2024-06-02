@@ -1,0 +1,48 @@
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 30px;
+}
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 10vh;
+  user-select: none;
+}
+.timer-container * {
+  font-weight: bold;
+  color: #333;
+}
+
+.hour,
+.min,
+.sec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.hour p,
+.min p,
+.sec p {
+  margin: 0;
+}
+
+.timer-container input[type='submit'] {
+  display: none;
+}
+
+.modify {
+  transition: color 0.3s ease;
+}
+
+.modify:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}

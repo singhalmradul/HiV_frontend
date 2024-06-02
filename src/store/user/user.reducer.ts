@@ -35,6 +35,7 @@ export const userReducer = (
 		return { ...state, isLoading: true };
 	}
 	if (fetchCurrentUserDetailsSuccess.match(action)) {
+		console.log('fetchCurrentUserDetailsSuccess', action.payload);
 		return { ...state, currentUser: action.payload };
 	}
 	if (fetchUserDetailsSuccess.match(action)) {
