@@ -7,7 +7,7 @@ import Button from '../../components/buttons/button.styles';
 import UserDetails from '../../components/user-details/user-details.component';
 
 import './profile.styles.css';
-import { selectCurrentUser, selectCurrentUserId, selectUser, selectUserIsLoading } from '../../store/user/user.selector';
+import { selectCurrentUser, selectCurrentUserId, selectUserIsLoading } from '../../store/user/user.selector';
 import { persistor } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
 import Buttons from '../../components/buttons/buttons.styles';

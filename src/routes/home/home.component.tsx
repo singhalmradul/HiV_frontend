@@ -13,7 +13,6 @@ const Home = () => {
 	const posts = useSelector(selectPosts)
 
 	useEffect(() => {
-		console.log('------------------------------------------------------ fetching feed posts -----------------------------------------')
 		dispatch(fetchPostsStart(POST_TYPE.FEED_POSTS))
 		// eslint-disable-next-line
 	}, []);
