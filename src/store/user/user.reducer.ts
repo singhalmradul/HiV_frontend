@@ -32,10 +32,9 @@ export const userReducer = (
 	action = {} as UnknownAction
 ): UserState => {
 	if (fetchUserDetailsStart.match(action)) {
-		return { ...state, isLoading: true };
+		return { ...state, isLoading: true, error: null};
 	}
 	if (fetchCurrentUserDetailsSuccess.match(action)) {
-		console.log('fetchCurrentUserDetailsSuccess', action.payload);
 		return { ...state, currentUser: action.payload };
 	}
 	if (fetchUserDetailsSuccess.match(action)) {
@@ -51,7 +50,7 @@ export const userReducer = (
 		return { ...state, user: action.payload };
 	}
 	if (updateProfileSuccess.match(action)) {
-		return { ...state, user: action.payload };
+		return { ...state, currentUser: action.payload };
 	}
 	if (updateProfileFailed.match(action)) {
 		return { ...state, error: action.payload };
@@ -59,7 +58,7 @@ export const userReducer = (
 	if (changeAvatarSuccess.match(action)) {
 		return {
 			...state,
-			user: { ...(state.user as User), avatar: action.payload },
+			currentUser: { ...(state.currentUser as User), avatar: action.payload },
 		};
 	}
 	if (resetUserState.match(action)) {

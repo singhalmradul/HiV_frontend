@@ -75,7 +75,7 @@ export function* updateProfileAsync({ payload: user }: UpdateProfileStart) {
 	}
 }
 
-export function* changeAvatar({ payload: file }: any) {
+export function* changeAvatarAsync({ payload: file }: any) {
 	try {
 		const currentUserId = yield* select(selectCurrentUserId);
 		const url = yield* call(updateAvatar, currentUserId, { avatar: file });
@@ -102,7 +102,7 @@ export function* onUpdateProfileStart() {
 }
 
 export function* onChangeAvatarStart() {
-	yield* takeLatest(USER_ACTION_TYPES.CHANGE_AVATAR_START, changeAvatar);
+	yield* takeLatest(USER_ACTION_TYPES.CHANGE_AVATAR_START, changeAvatarAsync);
 }
 
 export function* userSaga() {

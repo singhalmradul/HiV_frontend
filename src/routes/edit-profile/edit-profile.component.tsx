@@ -56,7 +56,7 @@ const EditProfile = () => {
         }
         dispatch(changeAvatarStart(file));
         setSaved(true);
-        window.alert('profile updated successfully');
+        window.alert('avatar updated successfully');
     };
     if (!user) {
         return <Spinner />;
