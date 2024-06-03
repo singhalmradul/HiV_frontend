@@ -36,7 +36,7 @@ const Profile = () => {
         navigate('/edit-profile');
     }
 
-    const userId = useSelector(selectCurrentUserId) as string;
+    const userId = useSelector(selectCurrentUserId);
     const user = useSelector(selectCurrentUser);
     const userIsLoading = useSelector(selectUserIsLoading);
 
