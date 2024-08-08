@@ -6,21 +6,21 @@ import Explore from "./routes/explore/explore.component";
 import Callback from "./routes/callback/callback.component";
 import Profiles from "./routes/profiles/profiles.component";
 import EditProfile from "./routes/edit-profile/edit-profile.component";
-import Timer from "./components/timer/timer.component";
-import { useSelector } from "react-redux";
-import { selectDisplayTimer } from "./store/timer/timer.selector";
+// import Timer from "./components/timer/timer.component";
+// import { useSelector } from "react-redux";
+// import { selectDisplayTimer } from "./store/timer/timer.selector";
 
 const App = () => {
-  const displayTimer = useSelector(selectDisplayTimer);
+  // const displayTimer = useSelector(selectDisplayTimer);
 
-  if (displayTimer)
-    return (
-      <Routes>
-        <Route path="/" element={<Timer />} />
-        <Route path="callback/" element={<Callback />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    );
+  // if (displayTimer)
+  //   return (
+  //     <Routes>
+  //       <Route path="/" element={<Timer />} />
+  //       <Route path="callback/" element={<Callback />} />
+  //       <Route path="*" element={<Navigate to="/" replace />} />
+  //     </Routes>
+  //   );
 
   return (
     <Routes>

@@ -6,7 +6,7 @@ import {
 	fetchPostsStart,
 	fetchPostsSuccess,
 } from './posts.action';
-import { POST_TYPE, Post } from './posts.types';
+import { Post } from './posts.types';
 import { fetchLikesSuccess, likePostSuccess, unlikePostSuccess } from '../likes/likes.action';
 import {
 	fetchCommentsSuccess,

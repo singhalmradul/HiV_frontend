@@ -25,7 +25,8 @@ export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
 		const userId = yield* select(
 			postType === POST_TYPE.USER_POSTS ? selectUserId : selectCurrentUserId
 		);
-		const posts = yield* call(fetchPosts, userId, postType);
+		const currentUserId = yield* select(selectCurrentUserId);
+		const posts = yield* call(fetchPosts, userId, postType, currentUserId);
 		yield* put(fetchPostsSuccess(posts));
 	} catch (error) {
 		yield* put(fetchPostsFailed(error as Error));
