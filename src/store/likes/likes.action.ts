@@ -5,7 +5,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 import { Post } from '../posts/posts.types';
 
-import { LIKE_ACTION_TYPES, Like } from './likes.types';
+import { LIKE_ACTION_TYPES } from './likes.types';
 
 // MARK: ---------------------- LIKE POST ACTION TYPES ----------------------
 

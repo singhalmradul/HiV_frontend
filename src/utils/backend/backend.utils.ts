@@ -10,11 +10,16 @@ const url = (endpoint: string) =>
 
 const userUrl = url('users');
 const postUrl = (userId: string) => `${userUrl}/${userId}/posts`;
-const followUrl = (userId: string, followId: string) => `${userUrl}/${userId}/follow/${followId}`;
+const followUrl = (userId: string, followId: string) =>
+	`${userUrl}/${userId}/follow/${followId}`;
 const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
 const commentUrl = (postId: string) => `${url('posts')}/${postId}/comments`;
 
-export const fetchPosts = async (userId: string, postType: POST_TYPE) => {
+export const fetchPosts = async (
+	userId: string,
+	postType: POST_TYPE,
+	currentUserId: string
+) => {
 	if (!userId) return [];
 
 	let url;
@@ -30,12 +35,14 @@ export const fetchPosts = async (userId: string, postType: POST_TYPE) => {
 			break;
 	}
 
-	const response = await axios.get<Post[]>(url);
+	const response = await axios.get<Post[]>(url, {
+		params: currentUserId && { userId: currentUserId },
+	});
 	return response.data;
 };
 
 export const fetchUser = async (id: string, userId: string) => {
-	const response = await axios.get<User>(`${userUrl}/${id}`,  {
+	const response = await axios.get<User>(`${userUrl}/${id}`, {
 		params: userId && { userId },
 	});
 	return response.data;
@@ -122,14 +129,21 @@ export const updateUser = async (userId: string, user: User) => {
 	return response.data;
 };
 
-export const updateAvatar = async (userId: string, { avatar }: { avatar: File; }) => {
+export const updateAvatar = async (
+	userId: string,
+	{ avatar }: { avatar: File }
+) => {
 	const formData = new FormData();
 	formData.append('avatar', avatar);
 
-	const response = await axios.put<string>(`${userUrl}/${userId}/avatar`, formData, {
-		headers: {
-			'Content-Type': 'multipart/form-data',
-		},
-	});
+	const response = await axios.put<string>(
+		`${userUrl}/${userId}/avatar`,
+		formData,
+		{
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		}
+	);
 	return response.data;
-}
+};
