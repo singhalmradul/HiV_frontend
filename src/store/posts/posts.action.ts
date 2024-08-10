@@ -8,10 +8,14 @@ import {
 import { POST_ACTION_TYPES, POST_TYPE, Post } from './posts.types';
 
 // MARK: ---------------------- FETCH POSTS ACTION TYPES ----------------------
+type FetchPostsStartParams = {
+	postType: POST_TYPE;
+	userId: string | null;
+};
 
 export type FetchPostsStart = ActionWithPayload<
 	POST_ACTION_TYPES.FETCH_POSTS_START,
-	POST_TYPE
+	FetchPostsStartParams
 >;
 
 export type FetchPostsSuccess = ActionWithPayload<
@@ -49,13 +53,13 @@ export type PostsAction =
 	| FetchPostsFailed
 	| CreatePostStart
 	| CreatePostSuccess
-	| CreatePostFailed
+	| CreatePostFailed;
 
 // MARK: ---------------------- FETCH POSTS ACTION CREATORS ----------------------
 
 export const fetchPostsStart = withMatcher(
-	(postType: POST_TYPE): FetchPostsStart =>
-		createAction(POST_ACTION_TYPES.FETCH_POSTS_START, postType)
+	(postType: POST_TYPE, userId: string | null = null): FetchPostsStart =>
+		createAction(POST_ACTION_TYPES.FETCH_POSTS_START, { postType, userId })
 );
 
 export const fetchPostsSuccess = withMatcher(

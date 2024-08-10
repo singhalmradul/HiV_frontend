@@ -16,22 +16,21 @@ const likeUrl = (postId: string) => `${url('posts')}/${postId}/likes`;
 const commentUrl = (postId: string) => `${url('posts')}/${postId}/comments`;
 
 export const fetchPosts = async (
-	userId: string,
+	userId: string | null,
 	postType: POST_TYPE,
 	currentUserId: string
 ) => {
-	if (!userId) return [];
-
 	let url;
 	switch (postType) {
 		case POST_TYPE.USER_POSTS:
+			if (!userId) return [];
 			url = postUrl(userId);
 			break;
 		case POST_TYPE.FEED_POSTS:
-			url = `${postUrl(userId)}/feed`;
+			url = `${postUrl(currentUserId)}/feed`;
 			break;
 		case POST_TYPE.EXPLORE_POSTS:
-			url = `${postUrl(userId)}/explore`;
+			url = `${postUrl(currentUserId)}/explore`;
 			break;
 	}
 
