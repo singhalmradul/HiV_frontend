@@ -10,13 +10,13 @@ import { User } from '../../store/user/user.types';
 import AvatarLarge from '../avatar-large/avatar-large.component';
 
 type UserDetailsProps = { user: User; };
-const UserDetails = ({ user: { displayName, avatar, bio, username } }: UserDetailsProps) => {
+const UserDetails = ({ user: { displayName, avatar, bio, id } }: UserDetailsProps) => {
 
     const userPosts = useSelector(selectPosts);
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchPostsStart(POST_TYPE.USER_POSTS));
+        dispatch(fetchPostsStart(POST_TYPE.USER_POSTS, id));
         // eslint-disable-next-line
     }, []
     );

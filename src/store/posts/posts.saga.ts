@@ -8,9 +8,9 @@ import {
 	fetchPostsFailed,
 	fetchPostsSuccess,
 } from './posts.action';
-import { POST_ACTION_TYPES, POST_TYPE, Post } from './posts.types';
+import { POST_ACTION_TYPES, Post } from './posts.types';
 import { setDisplayModal } from '../modal/modal.action';
-import { selectCurrentUser, selectCurrentUserId, selectUserId } from '../user/user.selector';
+import { selectCurrentUser, selectCurrentUserId } from '../user/user.selector';
 import { selectPosts } from './posts.selector';
 
 // MARK: ---------------------- UTILS ----------------------
@@ -20,11 +20,10 @@ export const updatePosts = (posts: Post[], post: Post) =>
 
 // MARK: ---------------------- SAGAS ----------------------
 
-export function* fetchPostsAsync({ payload: postType }: FetchPostsStart) {
+export function* fetchPostsAsync({
+	payload: { postType, userId },
+}: FetchPostsStart) {
 	try {
-		const userId = yield* select(
-			postType === POST_TYPE.USER_POSTS ? selectUserId : selectCurrentUserId
-		);
 		const currentUserId = yield* select(selectCurrentUserId);
 		const posts = yield* call(fetchPosts, userId, postType, currentUserId);
 		yield* put(fetchPostsSuccess(posts));
@@ -44,7 +43,7 @@ export function* createPostAsync({ payload: textWithFile }: CreatePostStart) {
 		post.user = {
 			id,
 			displayName,
-			avatar
+			avatar,
 		};
 		post.likesCount = 0;
 		post.commentsCount = 0;
